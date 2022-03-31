@@ -1,7 +1,15 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.section`
   .dashboard {
+    display: grid;
+    margin: 0 auto;
+    background-color: green;
+    padding: 2rem 1rem;
+  }
+
+  // old/mern stack prototype css
+  /* .dashboard {
     display: grid;
     grid-template-columns: 1fr;
   }
@@ -17,6 +25,6 @@ const Wrapper = styled.section`
     .dashboard-page {
       width: 90%;
     }
-  }
-`
-export default Wrapper
+  } */
+`;
+export default Wrapper;

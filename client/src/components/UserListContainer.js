@@ -2,8 +2,8 @@ import { useAppContext } from "../context/appContext";
 import { useEffect } from "react";
 import List from "./List";
 //jobscontainer wrapper/asset will need to be changed much later on to UserList and however we want to style it
-import Wrapper from "../assets/wrappers/JobsContainer";
-import IndividualList from "./IndividualList";
+import Wrapper from "../assets/wrappers/ListsContainer";
+import UserListIndividual from "./UserListIndividual";
 
 const UserListContainer = () => {
   const {
@@ -23,10 +23,21 @@ const UserListContainer = () => {
   if (isAdding) {
     return (
       <Wrapper>
-        <IndividualList />
+        <UserListIndividual />
       </Wrapper>
     );
   }
+
+  if (totalUserCreatedList === 0) {
+    return (
+      <Wrapper>
+        <div className="center-content">
+          <h2>No Lists. Please create one above</h2>
+        </div>
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
       <h5>

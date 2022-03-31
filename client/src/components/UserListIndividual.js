@@ -2,9 +2,9 @@ import { useAppContext } from "../context/appContext";
 import { useEffect } from "react";
 import styled from "styled-components";
 
-import { FormRow, Alert } from "../components";
+import { FormRow, Alert } from ".";
 
-const IndividualList = () => {
+const UserListIndividual = () => {
   const {
     activeList,
     isLoading,
@@ -141,4 +141,4 @@ const IndividualListWrapper = styled.div`
   text-align: center;
 `;
 
-export default IndividualList;
+export default UserListIndividual;

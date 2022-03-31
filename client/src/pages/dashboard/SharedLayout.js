@@ -12,6 +12,8 @@ import {
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
 
+import UserListCreation from "../../components/UserListCreation";
+
 const SharedLayout = () => {
   const {
     isLoading,
@@ -24,72 +26,21 @@ const SharedLayout = () => {
     getUserCreatedLists,
   } = useAppContext();
 
-  //test setup use tutorial setup for final version.
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!listTitle) {
-      displayAlert();
-      return;
-    }
-
-    //can add is editing functionality later if needed
-    // if (isEditing) {
-    //   editUserList()
-    //   return
-    // }
-
-    createUserList();
-
-    //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
-    clearAlert();
-    getUserCreatedLists();
-  };
-
-  const handleListInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    // console.log(`${name}: ${value}`)
-    handleChange({ name, value });
-  };
   return (
     <Wrapper>
       <main className="dashboard">
+        {/* 
+        //?Will add in the future but not needed for now
         <SmallSidebar />
         <BigSidebar />
+        <Navbar />
+        //TODO later will use outlet
+        <Outlet />
+        */}
 
+        <UserListCreation />
         <div>
-          <Navbar />
-          <div className="dashboard-page">
-            <Outlet />
-          </div>
-          <TestWrapper className="dashboard-page">
-            {/* Will be seperate userListCreation component later */}
-            <form className="form">
-              <div className="form-center">
-                {showAlert && <Alert />}
-                <FormRow
-                  type="text"
-                  labelText="Enter new list name"
-                  name="listTitle"
-                  value={listTitle}
-                  handleChange={handleListInput}
-                ></FormRow>
-                <div className="btn-container">
-                  <button
-                    type="submit"
-                    className="btn btn-block submit-btn"
-                    onClick={handleSubmit}
-                    disabled={isLoading}
-                  >
-                    Create new List
-                  </button>
-                </div>
-              </div>
-            </form>
-          </TestWrapper>
-          <div>
-            <UserListContainer />
-          </div>
+          <UserListContainer />
         </div>
       </main>
     </Wrapper>
