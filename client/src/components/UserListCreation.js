@@ -1,6 +1,6 @@
 import { useAppContext } from "../pages/context/appContext";
 
-import Wrapper from "../assets/wrappers/CreateList";
+import Wrapper from "../assets/wrappers/UserListCreation";
 import { Alert, FormRow } from ".";
 const UserListCreation = () => {
   const {

@@ -10,7 +10,9 @@ const Wrapper = styled.article`
   /* margin: 10px 50px 20px; */
   //text
   text-align: center;
-  height: 6em;
+  height: 7em;
+  margin: 1em 2em;
+
   //basesetup/paramets of cards
 
   /* @media (min-width: 576px) {
@@ -25,11 +27,12 @@ const Wrapper = styled.article`
 
   //generic hover
   &:hover {
-    box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.55);
   }
 
   .main {
     grid-area: main;
+    font-size: 2rem;
     margin: 5px 5px;
     background: ${(props) => props.theme.colors.mainYellow};
     place-self: center stretch;
