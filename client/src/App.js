@@ -1,3 +1,5 @@
+import { ModalProvider } from "styled-react-modal";
+
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Register, Landing, Error, ProtectedRoute } from "./pages/index.js";
 import {
@@ -10,26 +12,28 @@ import {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <SharedLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index path="/profile" element={<Profile />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/all-lists" element={<AllLists />} />
-          <Route path="/add-list" element={<AddList />} />
-        </Route>
-        <Route path="/register" element={<Register />} />
-        <Route path="/landing" element={<Landing />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </BrowserRouter>
+    <ModalProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <SharedLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index path="/profile" element={<Profile />} />
+            <Route path="/info" element={<Info />} />
+            <Route path="/all-lists" element={<AllLists />} />
+            <Route path="/add-list" element={<AddList />} />
+          </Route>
+          <Route path="/register" element={<Register />} />
+          <Route path="/landing" element={<Landing />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </BrowserRouter>
+    </ModalProvider>
   );
 }
 

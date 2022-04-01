@@ -54,7 +54,7 @@ const UserListCreation = () => {
             name="listTitle"
             value={listTitle}
             handleChange={handleListInput}
-          ></FormRow>
+          />
           <div className="btn-container">
             <button
               type="submit"
