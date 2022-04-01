@@ -10,30 +10,36 @@ const DeletionModal = Modal.styled`
     text-align: center;
     align-items: center;
     justify-content: center;
-    background-color: #1C1A1B;
+    background-color: ${(props) => props.theme.colors.mainWhite};
     opacity: ${(props) => props.opacity};
     transition : all 0.3s ease-in-out;
 
     h4 {
         // background-color: purple;
-        color: white;
+        color: ${(props) => props.theme.colors.textColor};
         margin: 2rem 0;
     }
 
     button {
         width: 12rem;
         height: 4rem;
-        margin: 10px 50px 20px;
+        margin: 10px 50px 20px;     
+        border: 5px 5px;  
+
+        &:hover {
+            box-shadow: 0 8px 6px 0 rgba(0, 0, 0, 0.55);
+        }
     }
 
     button.delete  {
-        background-color: red;
+        background-color: ${(props) => props.theme.colors.errorRed};
         color: white;
-        margin: 10px 50px 20px;
+        
     }
     
     button.close {
-        
+        background-color: ${(props) => props.theme.colors.mainWhite};
+       
     }
 `;
 export default DeletionModal;
