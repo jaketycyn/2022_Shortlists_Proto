@@ -1,6 +1,6 @@
-import { useAppContext } from "../context/appContext";
+import { useAppContext } from "../pages/context/appContext";
 import { useEffect } from "react";
-import List from "./List";
+import UserList from "./UserList";
 //jobscontainer wrapper/asset will need to be changed much later on to UserList and however we want to style it
 import Wrapper from "../assets/wrappers/ListsContainer";
 import UserListIndividual from "./UserListIndividual";
@@ -46,7 +46,7 @@ const UserListContainer = () => {
       </h5>
       <div className="lists">
         {userCreatedList.map((list) => {
-          return <List key={list._id} {...list} />;
+          return <UserList key={list._id} {...list} />;
         })}
       </div>
     </Wrapper>

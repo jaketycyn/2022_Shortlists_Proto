@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.main`
-  text-align: center;
+  /* text-align: center;
   img {
     max-width: 600px;
     display: block;
@@ -22,7 +22,7 @@ const Wrapper = styled.main`
     color: var(--primary-500);
     text-decoration: underline;
     text-transform: capitalize;
-  }
-`
+  } */
+`;
 
-export default Wrapper
+export default Wrapper;

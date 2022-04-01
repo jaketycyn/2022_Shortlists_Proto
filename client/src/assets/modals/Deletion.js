@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Modal from "styled-react-modal";
 
 //all props will appear green cause of styled-react-modal

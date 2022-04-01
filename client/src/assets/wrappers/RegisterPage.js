@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.section`
-  display: grid;
+  /* display: grid;
   align-items: center;
   .logo {
     display: block;
@@ -30,6 +30,6 @@ const Wrapper = styled.section`
     color: var(--primary-500);
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
-  }
-`
-export default Wrapper
+  } */
+`;
+export default Wrapper;

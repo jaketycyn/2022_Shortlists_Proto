@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.aside`
-  display: none;
+  /* display: none;
   @media (min-width: 992px) {
     display: block;
     box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.1);
@@ -61,6 +61,6 @@ const Wrapper = styled.aside`
     .active .icon {
       color: var(--primary-500);
     }
-  }
-`
-export default Wrapper
+  } */
+`;
+export default Wrapper;

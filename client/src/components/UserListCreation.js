@@ -1,4 +1,4 @@
-import { useAppContext } from "../context/appContext";
+import { useAppContext } from "../pages/context/appContext";
 
 import Wrapper from "../assets/wrappers/CreateList";
 import { Alert, FormRow } from ".";
@@ -43,10 +43,10 @@ const UserListCreation = () => {
   };
 
   return (
-    <Wrapper className="dashboard-page">
+    <Wrapper>
       {/* Will be seperate userListCreation component later */}
-      <form className="form">
-        <div className="form-center">
+      <form>
+        <div>
           {showAlert && <Alert />}
           <FormRow
             type="text"
@@ -58,7 +58,7 @@ const UserListCreation = () => {
           <div className="btn-container">
             <button
               type="submit"
-              className="btn btn-block submit-btn"
+              className="submit-btn"
               onClick={handleSubmit}
               disabled={isLoading}
             >

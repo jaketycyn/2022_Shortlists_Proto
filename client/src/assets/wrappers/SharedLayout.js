@@ -1,30 +1,8 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
-  .dashboard {
-    display: grid;
-    margin: 0 auto;
-    background-color: green;
-    padding: 2rem 1rem;
-  }
-
-  // old/mern stack prototype css
-  /* .dashboard {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-  .dashboard-page {
-    width: 90vw;
-    margin: 0 auto;
-    padding: 2rem 0;
-  }
-  @media (min-width: 992px) {
-    .dashboard {
-      grid-template-columns: auto 1fr;
-    }
-    .dashboard-page {
-      width: 90%;
-    }
-  } */
+  margin: 0 auto;
+  background-color: ${(props) => props.theme.colors.whiteColor};
+  padding: 2rem 1rem;
 `;
 export default Wrapper;

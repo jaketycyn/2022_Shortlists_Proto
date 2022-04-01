@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.section`
-  .form {
+  /* .form {
     width: 100%;
     max-width: 100%;
   }
@@ -38,7 +38,7 @@ const Wrapper = styled.section`
     .btn-block {
       margin-top: 0;
     }
-  }
-`
+  } */
+`;
 
-export default Wrapper
+export default Wrapper;

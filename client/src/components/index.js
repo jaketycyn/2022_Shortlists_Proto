@@ -5,8 +5,10 @@ import Logo from "./Logo";
 import Navbar from "./Navbar";
 import SearchContainer from "./SearchContainer";
 import SmallSidebar from "./SmallSidebar";
-import List from "./List";
+import UserList from "./UserList";
 import UserListContainer from "./UserListContainer";
+import UserListCreation from "./UserListCreation";
+import UserListIndividual from "./UserListIndividual";
 
 export {
   Alert,
@@ -16,6 +18,8 @@ export {
   Navbar,
   SmallSidebar,
   SearchContainer,
-  List,
+  UserList,
   UserListContainer,
+  UserListCreation,
+  UserListIndividual,
 };

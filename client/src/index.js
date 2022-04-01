@@ -1,17 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'normalize.css'
-import './index.css';
-import App from './App';
-import {AppProvider} from './context/appContext'
+import React from "react";
+import ReactDOM from "react-dom";
+import "normalize.css";
+
+import App from "./App";
+import { AppProvider } from "./pages/context/appContext";
+
+import { ThemeProvider } from "styled-components";
+import theme from "./assets/utils/theme";
+import GlobalStyles from "./assets/utils/global";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <ThemeProvider theme={theme}>
+      <AppProvider>
+        <App />
+        <GlobalStyles />
+      </AppProvider>
+    </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

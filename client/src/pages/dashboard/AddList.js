@@ -1,5 +1,5 @@
 import { FormRow, Alert } from "../../components";
-import { useAppContext } from "../../context/appContext";
+import { useAppContext } from "../context/appContext";
 
 const AddList = () => {
   const { isEditing, showAlert, displayAlert } = useAppContext();

@@ -1,4 +1,4 @@
-import { useAppContext } from "../context/appContext";
+import { useAppContext } from "../pages/context/appContext";
 import { useEffect } from "react";
 import styled from "styled-components";
 
