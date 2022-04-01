@@ -6,6 +6,9 @@ import Wrapper from "../assets/wrappers/UserList";
 import DeletionModal from "../assets/modals/Deletion";
 import styled from "styled-components";
 
+import { Share } from "@styled-icons/bootstrap/Share";
+import { Trash } from "@styled-icons/bootstrap/Trash";
+
 const UserList = ({ _id, listTitle }) => {
   const { setEditUserCreatedList, deleteUserCreatedList, setAddUserListMode } =
     useAppContext();
@@ -39,16 +42,16 @@ const UserList = ({ _id, listTitle }) => {
       </div>
       {/* List Title*/}
       <div className="secondary">
-        <div
+        <Share
           className="share"
           onClick={() => console.log("clicking share button")}
         >
           Share Item Icon
-        </div>
+        </Share>
         {/* Delete List*/}
 
         <div className="delete" onClick={() => toggleModal(_id)}>
-          Delete
+          <Trash />
           {/* Delete Modal */}
           <DeletionModal
             isOpen={isOpen}

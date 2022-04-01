@@ -44,10 +44,14 @@ const Wrapper = styled.article`
   }
 
   .share {
-    background: ${(props) => props.theme.colors.mainBlue};
+    //background: ${(props) => props.theme.colors.mainBlue};
+    height: 5em;
+    width: 5em;
   }
   .delete {
-    background: ${(props) => props.theme.colors.errorRed};
+    //background: ${(props) => props.theme.colors.errorRed};
+    height: 5em;
+    width: 5em;
   }
 `;
 
