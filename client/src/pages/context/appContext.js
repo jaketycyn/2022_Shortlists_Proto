@@ -16,14 +16,14 @@ import {
   DELETE_USER_LIST_BEGIN,
   DELETE_USER_LIST_SUCCESS,
   SET_ADD_USER_LIST_MODE,
+  SET_ACTIVE_LIST,
+  SET_INSIDE_LIST,
   //USER ITEMS
   CREATE_USER_LIST_ITEM_BEGIN,
   CREATE_USER_LIST_ITEM_SUCCESS,
   CREATE_USER_LIST_ITEM_ERROR,
   GET_USER_LIST_ITEM_BEGIN,
   GET_USER_LIST_ITEM_SUCCESS,
-  //SENDING TO FRIENDS
-  SET_FRIEND_IDENTIFIER,
 } from "./actions";
 import reducer from "./reducer";
 import axios from "axios";
@@ -40,13 +40,11 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   friendTitle: "",
-  //for now friendIdentifier is a string. Later when multiple people will be sent lists from a user it'll become an object array. or array of _ids
-  friendIdentifier: "",
   //not currently using
   userLocation: "",
   //userList initial state -- using user as a prefix to denote full user controlled/created elements in case of separation or adding in lists belonging to outside entities. EX: Friend's movie list or curated list from a magazine/publication
   isEditing: false,
-  isAdding: false,
+  insideList: false,
   activeList: [],
   editListId: "",
   listTitle: "",
@@ -210,7 +208,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const setAddUserListMode = async (listId) => {
+  const setActiveList = async (listId) => {
     console.log("listId in appContext");
     console.log(listId);
     const activeList = await state.userCreatedList.filter(
@@ -219,7 +217,16 @@ const AppProvider = ({ children }) => {
     console.log("activelist");
     console.log(activeList);
     try {
-      dispatch({ type: SET_ADD_USER_LIST_MODE, payload: { activeList } });
+      dispatch({ type: SET_ACTIVE_LIST, payload: { activeList } });
+    } catch (error) {
+      console.log(error);
+      console.log("logout user enter here");
+    }
+  };
+
+  const setInsideList = () => {
+    try {
+      dispatch({ type: SET_INSIDE_LIST });
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
@@ -273,14 +280,12 @@ const AppProvider = ({ children }) => {
     console.log("getUserCreatedListItems");
   };
 
-  //SENDING TO FRIENDS
-
   const sendListToFriend = async () => {
     const { activeList, friendTitle, userCreatedItems } = state;
     const sentListTitle = activeList[0].listTitle;
     const activeListId = activeList[0]._id;
     const listCreatorId = activeList[0].createdById;
-
+    console.log("activeListId: " + activeListId);
     try {
       //TODO: can make userIdentifier the global state tracker in future
       const userIdentifier = friendTitle;
@@ -305,12 +310,16 @@ const AppProvider = ({ children }) => {
       const returnData = await authFetch.get(
         `/userlists/createSentList/${friendIdentifier}/${listCreatorId}/${sentListTitle}`
       );
-      //console.log(returnData.data._id);
-      //console.log("sentListId: " + sentListId);
-      const sentListId = returnData.data._id;
+      console.log(returnData.data._id);
 
+      const sentListId = returnData.data._id;
+      console.log("sentListId: " + sentListId);
+
+      console.log("activeListId: " + activeListId);
       //!CREATE ITEMS FOR COPY LIST
 
+      // might swap parentListId to ownerLIstId to allow users in the future to share lists that they didnt' create but were shared to them.
+      console.log("userCreatedItems: " + userCreatedItems);
       const itemsToCopy = userCreatedItems.filter(
         (item) => item.parentListId === activeListId
       );
@@ -335,8 +344,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const createSentUserListItems = () => {};
-
   return (
     <AppContext.Provider
       value={{
@@ -350,12 +357,11 @@ const AppProvider = ({ children }) => {
         getUserCreatedLists,
         setEditUserCreatedList,
         deleteUserCreatedList,
-        setAddUserListMode,
+        setActiveList,
+        setInsideList,
         createUserListItem,
         getUserCreatedListItems,
         sendListToFriend,
-        createSentUserList,
-        createSentUserListItems,
       }}
     >
       {children}

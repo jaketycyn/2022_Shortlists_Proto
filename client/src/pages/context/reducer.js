@@ -16,7 +16,8 @@ import {
   DELETE_USER_LIST_BEGIN,
   DELETE_USER_LIST_SUCCESS,
   //MANIPULATING LISTS/ITEMS
-  SET_ADD_USER_LIST_MODE,
+  SET_ACTIVE_LIST,
+  SET_INSIDE_LIST,
   CREATE_USER_LIST_ITEM_BEGIN,
   CREATE_USER_LIST_ITEM_SUCCESS,
   CREATE_USER_LIST_ITEM_ERROR,
@@ -133,14 +134,19 @@ const reducer = (state, action) => {
       alertText: "User List Deleted",
     };
   }
-
-  if (action.type === SET_ADD_USER_LIST_MODE) {
+  if (action.type === SET_ACTIVE_LIST) {
     return {
       ...state,
-      isAdding: true,
       activeList: action.payload.activeList,
     };
   }
+  if (action.type === SET_INSIDE_LIST) {
+    return {
+      ...state,
+      insideList: true,
+    };
+  }
+
   if (action.type === CREATE_USER_LIST_ITEM_BEGIN) {
     return { ...state, isLoading: true };
   }

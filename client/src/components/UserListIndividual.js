@@ -18,8 +18,6 @@ const UserListIndividual = () => {
     getUserCreatedListItems,
     userCreatedItems,
     sendListToFriend,
-    createSentUserList,
-    createSentUserListItems,
   } = useAppContext();
 
   const title = activeList[0].listTitle;

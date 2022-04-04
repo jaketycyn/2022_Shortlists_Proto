@@ -8,7 +8,7 @@ import UserListIndividual from "./UserListIndividual";
 const UserListContainer = () => {
   const {
     isLoading,
-    isAdding,
+    insideList,
     activeList,
     userCreatedList,
     totalUserCreatedList,
@@ -20,7 +20,7 @@ const UserListContainer = () => {
     getUserCreatedLists();
   }, []);
 
-  if (isAdding) {
+  if (insideList) {
     return (
       <Wrapper>
         <UserListIndividual />

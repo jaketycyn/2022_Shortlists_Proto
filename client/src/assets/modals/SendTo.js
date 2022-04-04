@@ -13,6 +13,13 @@ const SendToModal = Modal.styled`
     opacity: ${(props) => props.opacity};
     transition : all 0.3s ease-in-out;
 
+    .center-align {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 5px 5px;
+    }
+
     h4 {
         // background-color: purple;
         color: ${(props) => props.theme.colors.textColor};

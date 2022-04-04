@@ -32,7 +32,8 @@ export const DELETE_USER_LIST_BEGIN = "DELETE_USER_LIST_BEGIN";
 export const DELETE_USER_LIST_SUCCESS = "DELETE_USER_LIST_SUCCESS";
 
 //changing interface to a singular list item + adding items to said list
-export const SET_ADD_USER_LIST_MODE = "SET_ADD_USER_LIST_MODE";
+export const SET_ACTIVE_LIST = "SET_ACTIVE_LIST";
+export const SET_INSIDE_LIST = "SET_INSIDE_LIST";
 
 //ITEMS
 
