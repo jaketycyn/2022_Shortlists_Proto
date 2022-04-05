@@ -78,70 +78,49 @@ const Register = () => {
   }, [user, navigate]);
 
   return (
-    //   <Wrapper className="full-page">
-    //     <form className="form" onSubmit={onSubmit}>
-    //       <Logo />
-    //       <h3>{values.isMember ? "Login" : "Register"}</h3>
-    //       {showAlert && <Alert />}
-    //       {!values.isMember && (
-    //         <FormRow
-    //           type="text"
-    //           name="name"
-    //           value={values.name}
-    //           handleChange={handleChange}
-    //         />
-    //       )}
-    //       {/* email input */}
-    //       <FormRow
-    //         type="email"
-    //         name="email"
-    //         value={values.email}
-    //         handleChange={handleChange}
-    //       />
-    //       {/* password input */}
-    //       <FormRow
-    //         type="password"
-    //         name="password"
-    //         value={values.password}
-    //         handleChange={handleChange}
-    //       />
-    //       <button type="submit" className="btn btn-block">
-    //         Submit
-    //       </button>
-    //       <p>
-    //         {values.isMember ? "Not a member yet" : "Already a member?"}
-    //         <button
-    //           type="button"
-    //           onClick={toggleMember}
-    //           className="member-btn"
-    //           disabled={isLoading}
-    //         >
-    //           {values.isMember ? "Register" : "Login"}
-    //         </button>
-    //       </p>
-    //     </form>
-    //   </Wrapper>
-    // );
-
     <CardWrapper>
-      <CardHeader>
-        <CardHeading>Sign in</CardHeading>
-      </CardHeader>
+      <form className="form" onSubmit={onSubmit}>
+        <CardHeader>
+          <CardHeading>{values.isMember ? "Login" : "Register"}</CardHeading>
+          {showAlert && <Alert />}
+        </CardHeader>
 
-      <CardBody>
-        <CardFieldset>
-          <CardInput placeholder="Username" type="text" required />
-        </CardFieldset>
+        <CardBody>
+          <CardFieldset>
+            {!values.isMember && (
+              <CardInput
+                placeholder="Username"
+                type="text"
+                required
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+              />
+            )}
+          </CardFieldset>
+          <CardFieldset>
+            <CardInput
+              placeholder="E-mail"
+              type="email"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              required
+            />
+          </CardFieldset>
 
-        <CardFieldset>
-          <CardInput placeholder="E-mail" type="text" required />
-        </CardFieldset>
+          <CardFieldset>
+            <CardInput
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+            />
+            <CardIcon className="fa fa-eye" eye small />
+          </CardFieldset>
 
-        <CardFieldset>
-          <CardInput placeholder="Password" type="password" required />
-          <CardIcon className="fa fa-eye" eye small />
-        </CardFieldset>
-
+          {/* Future Signup with social media Buttons
         <CardFieldset>
           <CardOptionsNote>Or sign up with</CardOptionsNote>
 
@@ -159,15 +138,27 @@ const Register = () => {
             </CardOptionsItem>
           </CardOptions>
         </CardFieldset>
+*/}
+          <CardFieldset>
+            <CardButton type="submit">
+              {values.isMember ? "Login" : "Register"}
+            </CardButton>
+          </CardFieldset>
 
-        <CardFieldset>
-          <CardButton type="button">Sign Up</CardButton>
-        </CardFieldset>
-
-        <CardFieldset>
-          <CardLink>I already have an account</CardLink>
-        </CardFieldset>
-      </CardBody>
+          <CardFieldset>
+            <CardButton
+              className="switch"
+              type="button"
+              onClick={toggleMember}
+              disabled={isLoading}
+            >
+              {values.isMember
+                ? "Create an Account"
+                : "I already have an account"}
+            </CardButton>
+          </CardFieldset>
+        </CardBody>
+      </form>
     </CardWrapper>
   );
 };

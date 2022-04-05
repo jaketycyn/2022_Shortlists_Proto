@@ -17,7 +17,7 @@ const UserList = ({ _id, listTitle }) => {
     isLoading,
     friendTitle,
     handleChange,
-    getUserCreatedLists,
+    getUserCreatedListItems,
     deleteUserCreatedList,
     setActiveList,
     setInsideList,
@@ -79,7 +79,7 @@ const UserList = ({ _id, listTitle }) => {
   };
 
   useEffect(() => {
-    getUserCreatedLists();
+    getUserCreatedListItems();
     console.log("initial firing of getUserCreatedListItems");
   }, []);
   //

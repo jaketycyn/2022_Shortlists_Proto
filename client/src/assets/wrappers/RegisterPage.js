@@ -163,16 +163,27 @@ export const CardButton = styled.button`
   font-size: 14px;
   font-weight: 700;
   color: #fff;
-  background-color: #e5195f;
+  background-color: ${(props) => props.theme.colors.mainBlack};
   border: 0;
   border-radius: 35px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
 
+  &.switch {
+    background-color: ${(props) => props.theme.colors.mainBlack};
+
+    &:hover {
+      box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
+      transform: translate(0, 3px);
+      background-color: ${(props) => props.theme.colors.mainOrange};
+    }
+  }
+
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
-    transform: translate(0, -5px);
+    transform: translate(0, -3px);
+    background-color: ${(props) => props.theme.colors.mainOrange};
   }
 `;
 
@@ -180,7 +191,7 @@ export const CardLink = styled.a`
   display: inline-block;
   font-size: 12px;
   text-decoration: none;
-  color: #aaa;
+  color: ${(props) => props.theme.colors.mainBlack};
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   transition: color 0.25s ease-in;
