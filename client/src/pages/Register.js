@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Alert, FormRow, Logo } from "../components";
-import Wrapper from "../assets/wrappers/RegisterPage";
+import Wrapper from "../display/styled/RegisterPage";
 import { useAppContext } from "./context/appContext";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ import {
   CardOptionsNote,
   CardButton,
   CardLink,
-} from "../assets/wrappers/RegisterPage.js";
+} from "../display/styled/RegisterPage.js";
 
 const initialState = {
   name: "",
