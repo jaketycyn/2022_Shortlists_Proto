@@ -21,7 +21,7 @@ const UserListCreation = () => {
   } = useAppContext();
 
   //test setup use tutorial setup for final version.
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!listTitle) {
       displayAlert();
@@ -34,11 +34,11 @@ const UserListCreation = () => {
     //   return
     // }
 
-    createUserList();
+    await createUserList();
 
     //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
-    clearAlert();
-    getUserCreatedLists();
+    await clearAlert();
+    await getUserCreatedLists();
   };
 
   const handleListInput = (e) => {
