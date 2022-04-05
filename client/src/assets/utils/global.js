@@ -17,7 +17,7 @@ export default createGlobalStyle`
   }
   html {
     font-size: 16px;
-    background-color: ${(props) => props.theme.colors.darkLighter};
+    background-color: ${(props) => props.theme.colors.mainWhite};
     box-sizing: border-box;
     --color-main: ${(props) => props.theme.colors.main}
     --color-mainDark: ${(props) => props.theme.colors.mainDark};
@@ -31,7 +31,7 @@ export default createGlobalStyle`
    
   }
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, 'Lato';
     font-weight: 400;
     line-height: 1.6;
     margin: 0;

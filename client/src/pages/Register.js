@@ -6,6 +6,21 @@ import { useNavigate } from "react-router-dom";
 
 // global context and useNavigate later
 
+import {
+  CardWrapper,
+  CardHeader,
+  CardHeading,
+  CardBody,
+  CardIcon,
+  CardFieldset,
+  CardInput,
+  CardOptionsItem,
+  CardOptions,
+  CardOptionsNote,
+  CardButton,
+  CardLink,
+} from "../assets/wrappers/RegisterPage.js";
+
 const initialState = {
   name: "",
   email: "",
@@ -63,50 +78,51 @@ const Register = () => {
   }, [user, navigate]);
 
   return (
-    <Wrapper className="full-page">
-      <form className="form" onSubmit={onSubmit}>
-        <Logo />
-        <h3>{values.isMember ? "Login" : "Register"}</h3>
-        {showAlert && <Alert />}
-        {!values.isMember && (
-          <FormRow
-            type="text"
-            name="name"
-            value={values.name}
-            handleChange={handleChange}
-          />
-        )}
-        {/* email input */}
-        <FormRow
-          type="email"
-          name="email"
-          value={values.email}
-          handleChange={handleChange}
-        />
-        {/* password input */}
-        <FormRow
-          type="password"
-          name="password"
-          value={values.password}
-          handleChange={handleChange}
-        />
-        <button type="submit" className="btn btn-block">
-          Submit
-        </button>
-        <p>
-          {values.isMember ? "Not a member yet" : "Already a member?"}
-          <button
-            type="button"
-            onClick={toggleMember}
-            className="member-btn"
-            disabled={isLoading}
-          >
-            {values.isMember ? "Register" : "Login"}
-          </button>
-        </p>
-      </form>
-    </Wrapper>
-  );
+    //   <Wrapper className="full-page">
+    //     <form className="form" onSubmit={onSubmit}>
+    //       <Logo />
+    //       <h3>{values.isMember ? "Login" : "Register"}</h3>
+    //       {showAlert && <Alert />}
+    //       {!values.isMember && (
+    //         <FormRow
+    //           type="text"
+    //           name="name"
+    //           value={values.name}
+    //           handleChange={handleChange}
+    //         />
+    //       )}
+    //       {/* email input */}
+    //       <FormRow
+    //         type="email"
+    //         name="email"
+    //         value={values.email}
+    //         handleChange={handleChange}
+    //       />
+    //       {/* password input */}
+    //       <FormRow
+    //         type="password"
+    //         name="password"
+    //         value={values.password}
+    //         handleChange={handleChange}
+    //       />
+    //       <button type="submit" className="btn btn-block">
+    //         Submit
+    //       </button>
+    //       <p>
+    //         {values.isMember ? "Not a member yet" : "Already a member?"}
+    //         <button
+    //           type="button"
+    //           onClick={toggleMember}
+    //           className="member-btn"
+    //           disabled={isLoading}
+    //         >
+    //           {values.isMember ? "Register" : "Login"}
+    //         </button>
+    //       </p>
+    //     </form>
+    //   </Wrapper>
+    // );
+
 };
 
 export default Register;

@@ -151,7 +151,7 @@ const reducer = (state, action) => {
   if (action.type === SET_ACTIVE_LIST) {
     return {
       ...state,
-      activeList: action.payload.activeList,
+      activeList: action.payload.newActiveList,
     };
   }
   if (action.type === SET_INSIDE_LIST) {

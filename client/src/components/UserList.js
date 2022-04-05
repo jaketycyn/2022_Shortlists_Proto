@@ -17,7 +17,7 @@ const UserList = ({ _id, listTitle }) => {
     isLoading,
     friendTitle,
     handleChange,
-    getUserCreatedListItems,
+    getUserCreatedLists,
     deleteUserCreatedList,
     setActiveList,
     setInsideList,
@@ -79,10 +79,10 @@ const UserList = ({ _id, listTitle }) => {
   };
 
   useEffect(() => {
-    getUserCreatedListItems();
+    getUserCreatedLists();
     console.log("initial firing of getUserCreatedListItems");
   }, []);
-
+  //
   return (
     <Wrapper>
       {/* List Title*/}

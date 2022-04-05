@@ -1,4 +1,4 @@
-import React, { useReducer, useContext, useEffect } from "react";
+import React, { useReducer, useContext } from "react";
 import {
   CLEAR_ALERT,
   CLEAR_VALUES,
@@ -15,7 +15,6 @@ import {
   GET_USER_LIST_SUCCESS,
   DELETE_USER_LIST_BEGIN,
   DELETE_USER_LIST_SUCCESS,
-  SET_ADD_USER_LIST_MODE,
   SET_ACTIVE_LIST,
   SET_INSIDE_LIST,
   //USER ITEMS
@@ -229,13 +228,13 @@ const AppProvider = ({ children }) => {
   const setActiveList = async (listId) => {
     console.log("listId in appContext");
     console.log(listId);
-    const activeList = await state.userCreatedList.filter(
+    const newActiveList = await state.userCreatedList.filter(
       (item) => item._id === listId
     );
-    console.log("activelist");
-    console.log(activeList);
+    console.log("newActiveList");
+    console.log(newActiveList);
     try {
-      dispatch({ type: SET_ACTIVE_LIST, payload: { activeList } });
+      dispatch({ type: SET_ACTIVE_LIST, payload: { newActiveList } });
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
