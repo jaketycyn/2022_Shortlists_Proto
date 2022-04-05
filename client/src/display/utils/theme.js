@@ -7,9 +7,8 @@ const theme = {
     mainLight: "#7CBDE6",
     mainLighter: "#C4DBEA",
     //secondary
-    secondary: "#E6B065",
-    secondaryLight: "#EAD0AD",
-    secondaryLighter: "#FFE2BD",
+    secondary: "#EAD0AD",
+    secondaryLight: "#FFE2BD",
     secondaryDark: "#4D3B22",
     secondaryDarker: "#291F12",
     //blacks

@@ -1,5 +1,10 @@
 import React from "react";
-import Wrapper from "../display/styled/LandingPage.js";
+import {
+  CardButton,
+  CardFieldset,
+  CardLink,
+  Wrapper,
+} from "../display/styled/LandingPage.js";
 
 import { Link } from "react-router-dom";
 
@@ -18,9 +23,11 @@ const Landing = () => {
             intelligentsia roof party DIY neutra tousled whatever. Before they
             sold out green juice drinking vinegar offal craft beer.
           </p>
-          <Link to="/register" className="link-register">
-            Login/Register
-          </Link>
+          <CardFieldset>
+            <CardButton>
+              <CardLink to="/register">Login/Register</CardLink>
+            </CardButton>
+          </CardFieldset>
         </div>
         {/* image - 2nd column could opt for no image and center*/}
       </div>
