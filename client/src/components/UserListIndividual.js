@@ -2,7 +2,21 @@ import { useAppContext } from "../pages/context/appContext";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import Wrapper from "../display/styled/UserListIndividual";
+import {
+  Wrapper,
+  CardWrapper,
+  CardHeader,
+  CardHeading,
+  CardBody,
+  CardIcon,
+  CardFieldset,
+  CardInput,
+  CardOptionsItem,
+  CardOptions,
+  CardOptionsNote,
+  CardButton,
+  CardLink,
+} from "../display/styled/UserListIndividual";
 import ItemWrapper from "../display/styled/UserItems";
 import { FormRow, Alert } from ".";
 
@@ -95,84 +109,91 @@ const UserListIndividual = ({ _id }) => {
   console.log("filteredListByParentId");
   console.log(filteredListByParentId);
   return (
-    <Wrapper>
-      <form className="form">
-        <div>{title}</div>
-        <FormRow
-          type="text"
-          labelText="Enter Friends Name"
-          name="friendTitle"
-          value={friendTitle}
-          handleChange={handleItemInput}
-        ></FormRow>
-        <button
-          type="submit"
-          className="btn btn-block submit-btn"
-          onClick={handleSubmit}
-          disabled={isLoading}
-        >
-          Send List to Friend
-        </button>
-        <div className="form-center">
+    <Wrapper className="Origin">
+      <form className="form" onSubmit={handleSubmit}>
+        <CardHeader>
+          <CardHeading>{title}</CardHeading>
           {showAlert && <Alert />}
-          <FormRow
-            type="text"
-            labelText="Add Items to list"
-            name="itemTitle"
-            value={itemTitle}
-            handleChange={handleItemInput}
-          ></FormRow>
-          <div className="btn-container">
-            <button
+          <CardFieldset>
+            <CardInput
+              type="text"
+              placeholder="Enter Friends Name"
+              name="friendTitle"
+              value={friendTitle}
+              onChange={handleItemInput}
+            />
+          </CardFieldset>
+
+          <CardFieldset>
+            <CardButton
               type="submit"
               className="btn btn-block submit-btn"
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              Add To List
-            </button>
+              Send List to Friend
+            </CardButton>
+          </CardFieldset>
+          <CardFieldset>
+            <CardInput
+              type="text"
+              placeholder="Add Items to list"
+              name="itemTitle"
+              value={itemTitle}
+              onChange={handleItemInput}
+            />
+          </CardFieldset>
 
-            {/* Items */}
-            <div>
-              {filteredListByParentId.map((item) => {
-                return (
-                  <ItemWrapper key={item._id} itemtitle={item.itemtitle}>
-                    {item.itemTitle}
-                    <div
+          <CardFieldset>
+            <CardButton
+              type="submit"
+              className="btn btn-block submit-btn"
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              Send List to Friend
+            </CardButton>
+          </CardFieldset>
+        </CardHeader>
+        {/* Items */}
+        <div>
+          {filteredListByParentId.map((item) => {
+            return (
+              <ItemWrapper key={item._id} itemtitle={item.itemtitle}>
+                {item.itemTitle}
+                <div
+                  className="delete"
+                  onClick={() => toggleDeleteModal(item._id)}
+                >
+                  <Trash />
+                  {/* Delete Modal */}
+                  <DeletionModal
+                    isOpen={deleteIsOpen}
+                    afterOpen={afterOpen}
+                    beforeClose={beforeClose}
+                    onBackgroundClick={toggleDeleteModal}
+                    onEscapeKeydown={toggleDeleteModal}
+                    opacity={opacity}
+                    backgroundProps={{ opacity }}
+                  >
+                    <h4>Delete this Item?</h4>
+                    <button
                       className="delete"
-                      onClick={() => toggleDeleteModal(item._id)}
+                      onClick={() => deleteUserCreatedListItem(item._id)}
                     >
-                      <Trash />
-                      {/* Delete Modal */}
-                      <DeletionModal
-                        isOpen={deleteIsOpen}
-                        afterOpen={afterOpen}
-                        beforeClose={beforeClose}
-                        onBackgroundClick={toggleDeleteModal}
-                        onEscapeKeydown={toggleDeleteModal}
-                        opacity={opacity}
-                        backgroundProps={{ opacity }}
-                      >
-                        <h4>Delete this List?</h4>
-                        <button
-                          className="placeholder"
-                          onClick={() => deleteUserCreatedListItem(item._id)}
-                        >
-                          Yes
-                        </button>
-                        <button
-                          className="close"
-                          onClick={() => toggleDeleteModal()}
-                        >
-                          No
-                        </button>
-                      </DeletionModal>
-                    </div>
-                  </ItemWrapper>
-                );
-              })}
-            </div>
-          </div>
+                      Yes
+                    </button>
+                    <button
+                      className="close"
+                      onClick={() => toggleDeleteModal()}
+                    >
+                      No
+                    </button>
+                  </DeletionModal>
+                </div>
+              </ItemWrapper>
+            );
+          })}
         </div>
       </form>
     </Wrapper>

@@ -45,7 +45,9 @@ export const CardInput = styled.input`
   border-bottom: 1px solid #ddd;
   border-left: 0;
   transition: border-bottom-color 0.25s ease-in;
-
+  @media (max-width: 1120px) {
+    width: 20em;
+  }
   &:focus {
     border-bottom-color: #e5195f;
     outline: 0;

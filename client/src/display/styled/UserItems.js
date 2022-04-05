@@ -1,33 +1,25 @@
 import styled from "styled-components";
 
 const ItemWrapper = styled.article`
-  //grid
   display: grid;
-  grid-template-columns: 5fr 1fr 1fr;
+  grid-template-columns: 4fr 1fr;
   grid-template-areas: "main secondary";
   grid-gap: 1em;
-  background: ${(props) => props.theme.colors.mainWhite};
+  background: ${(props) => props.theme.colors.white};
+  border-style: solid;
+  border-radius: 1rem;
+  border-color: ${(props) => props.theme.colors.secondaryBrownDark};
   /* margin: 10px 50px 20px; */
   //text
   text-align: center;
-  height: 7em;
-  margin: 1em 2em;
+  height: 7rem;
+  margin: 1rem 2rem;
 
   //basesetup/paramets of cards
 
-  /* @media (min-width: 576px) {
+  @media (max-width: 1120px) {
     grid-template-columns: 3fr 1fr 1fr;
-  }
-  @media (min-width: 992px) {
-    grid-template-columns: 3fr 1fr 1fr;
-  }
-  @media (min-width: 1120px) {
-    grid-template-columns: 3fr 1fr 1fr;
-  } */
-
-  //generic hover
-  &:hover {
-    box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.55);
+    margin: 0.5rem 1rem;
   }
 
   .main {

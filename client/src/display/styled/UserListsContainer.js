@@ -10,8 +10,10 @@ const Wrapper = styled.article`
   text-align: center;
 
   .list-input {
-    background: ${(props) => props.theme.colors.mainBlue};
+    background: ${(props) => props.theme.colors.white};
     display: grid;
+    border-style: solid;
+    background-color: ${(props) => props.theme.colors.secondary};
     grid-template-columns: repeat(2, 1fr);
 
     @media (max-width: 1200px) {

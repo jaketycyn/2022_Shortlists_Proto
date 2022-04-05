@@ -17,6 +17,8 @@ const UserList = ({ _id, listTitle }) => {
     isLoading,
     friendTitle,
     handleChange,
+    showAlert,
+
     getUserCreatedListItems,
     deleteUserCreatedList,
     setActiveList,
@@ -81,7 +83,7 @@ const UserList = ({ _id, listTitle }) => {
   useEffect(() => {
     getUserCreatedListItems();
     console.log("initial firing of getUserCreatedListItems");
-  }, []);
+  }, [showAlert === true]);
   //
   return (
     <Wrapper>
@@ -140,7 +142,7 @@ const UserList = ({ _id, listTitle }) => {
           >
             <h4>Delete this List?</h4>
             <button
-              className="placeholder"
+              className="delete"
               onClick={() => deleteUserCreatedList(_id)}
             >
               Yes
