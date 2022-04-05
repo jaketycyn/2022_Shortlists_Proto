@@ -21,7 +21,8 @@ const theme = {
     mainYellow: "#E3B015",
     //oranges
     mainOrange: "#D6473F",
-
+    //pink
+    mainPink: "#FA84EE",
     //text
     textColor: "#202124",
     //errors

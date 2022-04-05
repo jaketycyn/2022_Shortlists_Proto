@@ -24,7 +24,6 @@ const SharedLayout = () => {
         <Outlet />
         */}
 
-        <UserListCreation />
         <div>
           <UserListContainer />
         </div>
