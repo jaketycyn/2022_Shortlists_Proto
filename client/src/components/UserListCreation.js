@@ -1,7 +1,13 @@
 import { useAppContext } from "../pages/context/appContext";
 
-import Wrapper from "../display/styled/UserListCreation";
+import {
+  Wrapper,
+  CardBody,
+  CardFieldset,
+  CardInput,
+} from "../display/styled/UserListCreation";
 import { Alert, FormRow } from ".";
+
 const UserListCreation = () => {
   const {
     isLoading,
@@ -45,28 +51,32 @@ const UserListCreation = () => {
   return (
     <Wrapper>
       {/* Will be seperate userListCreation component later */}
-      <form>
-        <div>
-          {showAlert && <Alert />}
-          <FormRow
-            type="text"
-            labelText="Enter new list name"
-            name="listTitle"
-            value={listTitle}
-            handleChange={handleListInput}
-          />
-          <div className="btn-container">
-            <button
-              type="submit"
-              className="submit-btn"
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              Create new List
-            </button>
-          </div>
-        </div>
-      </form>
+
+      <CardBody>
+        <form>
+          <CardFieldset>
+            {showAlert && <Alert />}
+            <CardInput
+              placeholder="Enter a new list name"
+              type="text"
+              labelText="Enter new list name"
+              name="listTitle"
+              value={listTitle}
+              onChange={handleListInput}
+            />
+            <div className="btn-container">
+              <button
+                type="submit"
+                className="submit-btn"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                Create new List
+              </button>
+            </div>
+          </CardFieldset>
+        </form>
+      </CardBody>
     </Wrapper>
   );
 };
