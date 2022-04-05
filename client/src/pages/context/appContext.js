@@ -198,10 +198,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: DELETE_USER_LIST_BEGIN });
     try {
       await authFetch.delete(`/userlists/${listId}`);
-      console.log("delete userlist should fire from here");
+      //console.log("delete userlist should fire from here");
       dispatch({ type: DELETE_USER_LIST_SUCCESS });
-      // dispatch({ type: CLEAR_VALUES });
-      getUserCreatedLists();
+      dispatch({ type: CLEAR_VALUES });
+      await getUserCreatedLists();
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
@@ -217,7 +217,7 @@ const AppProvider = ({ children }) => {
       console.log("delete userItem should fire from here");
       dispatch({ type: DELETE_USER_LIST_ITEM_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
-      await getUserCreatedLists();
+      //await getUserCreatedLists();
       await getUserCreatedListItems();
     } catch (error) {
       console.log(error);
@@ -260,6 +260,7 @@ const AppProvider = ({ children }) => {
       await authFetch.post("/useritems", { itemTitle, parentListId });
       dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
+      await getUserCreatedListItems();
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({
