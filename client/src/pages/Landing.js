@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <Wrapper>
-      <nav></nav>
       <div className="container page">
+        <h1>Logo.JPG</h1>
         {/* info -1st column*/}
         <div className="info">
           <h1>Info Header</h1>
@@ -18,7 +18,7 @@ const Landing = () => {
             intelligentsia roof party DIY neutra tousled whatever. Before they
             sold out green juice drinking vinegar offal craft beer.
           </p>
-          <Link to="/register" className="btn btn-hero">
+          <Link to="/register" className="link-register">
             Login/Register
           </Link>
         </div>
