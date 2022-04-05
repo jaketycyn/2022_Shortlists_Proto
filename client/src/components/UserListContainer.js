@@ -2,7 +2,7 @@ import { useAppContext } from "../pages/context/appContext";
 import { useEffect } from "react";
 import UserList from "./UserList";
 //jobscontainer wrapper/asset will need to be changed much later on to UserList and however we want to style it
-import Wrapper from "../assets/wrappers/UserListsContainer";
+import Wrapper from "../display/styled/UserListsContainer";
 import UserListIndividual from "./UserListIndividual";
 import UserListCreation from "./UserListCreation";
 

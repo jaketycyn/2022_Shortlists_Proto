@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../pages/context/appContext";
 
-import Wrapper from "../assets/wrappers/UserList";
-import DeletionModal from "../assets/modals/Deletion";
-import SendToModal from "../assets/modals/SendTo";
+import Wrapper from "../display/styled/UserList";
+import DeletionModal from "../display/modals/Deletion";
+import SendToModal from "../display/modals/SendTo";
 import styled from "styled-components";
 
 import { FormRow } from ".";

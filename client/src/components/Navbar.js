@@ -1,4 +1,4 @@
-import Wrapper from "../assets/wrappers/Navbar";
+import Wrapper from "../display/styled/Navbar";
 
 const Navbar = () => {
   return (

@@ -2,11 +2,11 @@ import { useAppContext } from "../pages/context/appContext";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import Wrapper from "../assets/wrappers/UserListIndividual";
-import ItemWrapper from "../assets/wrappers/UserItems";
+import Wrapper from "../display/styled/UserListIndividual";
+import ItemWrapper from "../display/styled/UserItems";
 import { FormRow, Alert } from ".";
 
-import DeletionModal from "../assets/modals/Deletion";
+import DeletionModal from "../display/modals/Deletion";
 
 import { Trash } from "@styled-icons/bootstrap/Trash";
 

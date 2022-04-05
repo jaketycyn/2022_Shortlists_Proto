@@ -6,8 +6,8 @@ import App from "./App";
 import { AppProvider } from "./pages/context/appContext";
 
 import { ThemeProvider } from "styled-components";
-import theme from "./assets/utils/theme";
-import GlobalStyles from "./assets/utils/global";
+import theme from "./display/utils/theme";
+import GlobalStyles from "./display/utils/global";
 
 ReactDOM.render(
   <React.StrictMode>
