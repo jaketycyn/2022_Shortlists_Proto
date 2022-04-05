@@ -2,13 +2,13 @@ import styled, { css } from "styled-components";
 //will need to look into these CSS features used below and how to relate to global/theme
 
 export const CardWrapper = styled.div`
-  overflow: hidden;
   padding: 0 0 32px;
   margin: 48px auto 0;
   width: 300px;
   font-family: Quicksand, arial, sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
   border-radius: 5px;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const CardHeader = styled.header`

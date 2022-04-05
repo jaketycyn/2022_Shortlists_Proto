@@ -2,32 +2,34 @@ const theme = {
   colors: {
     //future main theme
     main: "#369FE0",
-    mainDark: "#174561",
-    mainDarker: "#0F2F40",
+    mainDark: "#2A7BAD",
+    mainDarker: "#174561",
     mainLight: "#7CBDE6",
-    mainLighter: "#C4DBEA",
+    mainLighter: "#95C7E6",
     //secondary
     secondary: "#EAD0AD",
     secondaryLight: "#FFE2BD",
     secondaryDark: "#4D3B22",
     secondaryDarker: "#291F12",
     //blacks
-    mainBlack: "#202124",
+    black: "#202124",
     //greys
-    mainGrey: "#566066",
+    grey: "#566066",
     solidGrey: "#999999",
     //whites
-    mainWhite: "#EEF0F3",
+    white: "#EEF0F3",
+    mainWhite: "#C4DBEA",
     //blues
-    mainBlue: "#1A73E8",
+    blue: "#1A73E8",
     //greens
-    mainGreen: "#9AE670",
+    green: "#9AE670",
     //yellows
-    mainYellow: "#E3B015",
+    yellow: "#E3B015",
     //oranges
-    mainOrange: "#D6473F",
+    orange: "#D6473F",
     //pinks
-    mainPink: "#E593E6",
+    pink: "#E593E6",
+    pinkLight: "#FFCDBD",
 
     //text
     textColor: "#202124",

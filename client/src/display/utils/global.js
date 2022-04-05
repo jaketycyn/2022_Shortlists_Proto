@@ -17,7 +17,7 @@ export default createGlobalStyle`
   }
   html {
     font-size: 16px;
-    background-color: ${(props) => props.theme.colors.mainWhite};
+    background-color: ${(props) => props.theme.colors.mainLight};
     box-sizing: border-box;
     --color-main: ${(props) => props.theme.colors.main}
     --color-mainDark: ${(props) => props.theme.colors.mainDark};
