@@ -3,15 +3,29 @@ import styled, { css } from "styled-components";
 
 export const CardWrapper = styled.div`
   padding: 0 0 32px;
-  margin: 48px auto 0;
+  margin: 12.5rem auto 0;
   width: 300px;
   font-family: Quicksand, arial, sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
   border-radius: 5px;
   background-color: ${(props) => props.theme.colors.white};
+
+  @media (max-width: 1200px) {
+    //setup for later changes indddd sizing between mobile and desktop
+    /* padding: 0 0 32px;
+    margin: 48px auto 0;
+    width: 300px;
+    font-family: Qsuicksand, arial, sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.colors.secondaryLight}; */
+  }
 `;
 
 export const CardHeader = styled.header`
+  display: grid;
+  justify-content: center;
+  align-items: center;
   padding-top: 32px;
   padding-bottom: 32px;
 `;
@@ -47,10 +61,12 @@ export const CardFieldset = styled.fieldset`
 `;
 
 export const CardInput = styled.input`
-  padding: 7px 0;
+  //padding: 7px 0;
+  padding: 0.75rem 0;
   width: 100%;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 18px;
+  text-align: center;
   border-top: 0;
   border-right: 0;
   border-bottom: 1px solid #ddd;
@@ -129,7 +145,7 @@ export const CardButton = styled.button`
   font-size: 14px;
   font-weight: 700;
   color: #fff;
-  background-color: ${(props) => props.theme.colors.mainBlack};
+  background-color: ${(props) => props.theme.colors.black};
   border: 0;
   border-radius: 35px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
@@ -137,19 +153,19 @@ export const CardButton = styled.button`
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
 
   &.switch {
-    background-color: ${(props) => props.theme.colors.mainBlack};
+    background-color: ${(props) => props.theme.colors.black};
 
     &:hover {
       box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
       transform: translate(0, 3px);
-      background-color: ${(props) => props.theme.colors.mainOrange};
+      background-color: ${(props) => props.theme.colors.mainDark};
     }
   }
 
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -3px);
-    background-color: ${(props) => props.theme.colors.mainOrange};
+    background-color: ${(props) => props.theme.colors.secondary};
   }
 `;
 

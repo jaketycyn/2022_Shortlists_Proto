@@ -9,8 +9,10 @@ const theme = {
     //secondary
     secondary: "#EAD0AD",
     secondaryLight: "#FFE2BD",
-    secondaryDark: "#4D3B22",
-    secondaryDarker: "#291F12",
+    secondaryDark: "#9E8565",
+    secondaryDarker: "#52412C",
+    secondaryBrown: "#4D3B22",
+    secondaryBrownDark: "#291F12",
     //blacks
     black: "#202124",
     //greys
