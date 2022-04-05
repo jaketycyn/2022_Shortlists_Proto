@@ -1,10 +1,16 @@
 import { useAppContext } from "../pages/context/appContext";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
+import Wrapper from "../assets/wrappers/UserListIndividual";
+import ItemWrapper from "../assets/wrappers/UserItems";
 import { FormRow, Alert } from ".";
 
-const UserListIndividual = () => {
+import DeletionModal from "../assets/modals/Deletion";
+
+import { Trash } from "@styled-icons/bootstrap/Trash";
+
+const UserListIndividual = ({ _id }) => {
   const {
     activeList,
     isLoading,
@@ -16,9 +22,31 @@ const UserListIndividual = () => {
     handleChange,
     createUserListItem,
     getUserCreatedListItems,
+    deleteUserCreatedListItem,
     userCreatedItems,
     sendListToFriend,
   } = useAppContext();
+
+  const [deleteIsOpen, setDeleteIsOpen] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+
+  function toggleDeleteModal(e) {
+    setOpacity(0);
+    setDeleteIsOpen(!deleteIsOpen);
+  }
+
+  function afterOpen() {
+    setTimeout(() => {
+      setOpacity(1);
+    }, 100);
+  }
+
+  function beforeClose() {
+    return new Promise((resolve) => {
+      setOpacity(0);
+      setTimeout(resolve, 300);
+    });
+  }
 
   const title = activeList[0].listTitle;
 
@@ -67,76 +95,88 @@ const UserListIndividual = () => {
   console.log("filteredListByParentId");
   console.log(filteredListByParentId);
   return (
-    <CenterAlignWrapper>
-      <IndividualListWrapper>
-        <form className="form">
-          <div>{title}</div>
+    <Wrapper>
+      <form className="form">
+        <div>{title}</div>
+        <FormRow
+          type="text"
+          labelText="Enter Friends Name"
+          name="friendTitle"
+          value={friendTitle}
+          handleChange={handleItemInput}
+        ></FormRow>
+        <button
+          type="submit"
+          className="btn btn-block submit-btn"
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
+          Send List to Friend
+        </button>
+        <div className="form-center">
+          {showAlert && <Alert />}
           <FormRow
             type="text"
-            labelText="Enter Friends Name"
-            name="friendTitle"
-            value={friendTitle}
+            labelText="Add Items to list"
+            name="itemTitle"
+            value={itemTitle}
             handleChange={handleItemInput}
           ></FormRow>
-          <button
-            type="submit"
-            className="btn btn-block submit-btn"
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            Send List to Friend
-          </button>
-          <div className="form-center">
-            {showAlert && <Alert />}
-            <FormRow
-              type="text"
-              labelText="Add Items to list"
-              name="itemTitle"
-              value={itemTitle}
-              handleChange={handleItemInput}
-            ></FormRow>
-            <div className="btn-container">
-              <button
-                type="submit"
-                className="btn btn-block submit-btn"
-                onClick={handleSubmit}
-                disabled={isLoading}
-              >
-                Add To List
-              </button>
+          <div className="btn-container">
+            <button
+              type="submit"
+              className="btn btn-block submit-btn"
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              Add To List
+            </button>
 
-              <div>
-                {filteredListByParentId.map((item) => {
-                  return (
-                    <div key={item._id} itemtitle={item.itemtitle}>
-                      {item.itemTitle}
+            {/* Items */}
+            <div>
+              {filteredListByParentId.map((item) => {
+                return (
+                  <ItemWrapper key={item._id} itemtitle={item.itemtitle}>
+                    {item.itemTitle}
+                    <div
+                      className="delete"
+                      onClick={() => toggleDeleteModal(item._id)}
+                    >
+                      <Trash />
+                      {/* Delete Modal */}
+                      <DeletionModal
+                        isOpen={deleteIsOpen}
+                        afterOpen={afterOpen}
+                        beforeClose={beforeClose}
+                        onBackgroundClick={toggleDeleteModal}
+                        onEscapeKeydown={toggleDeleteModal}
+                        opacity={opacity}
+                        backgroundProps={{ opacity }}
+                      >
+                        <h4>Delete this List?</h4>
+                        <button
+                          className="placeholder"
+                          onClick={() => deleteUserCreatedListItem(item._id)}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          className="close"
+                          onClick={() => toggleDeleteModal()}
+                        >
+                          No
+                        </button>
+                      </DeletionModal>
                     </div>
-                  );
-                })}
-              </div>
+                  </ItemWrapper>
+                );
+              })}
             </div>
           </div>
-        </form>
-      </IndividualListWrapper>
-    </CenterAlignWrapper>
+        </div>
+      </form>
+    </Wrapper>
   );
 };
-
-const CenterAlignWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  grid-auto-rows: 200px;
-  grid-template-areas:
-    ". a a ."
-    ". a a .";
-`;
-
-const IndividualListWrapper = styled.div`
-  grid-area: a;
-  align-self: center;
-  justify-self: center;
-  text-align: center;
-`;
 
 export default UserListIndividual;

@@ -31,6 +31,9 @@ export const GET_USER_LIST_SUCCESS = "GET_USER_LIST_SUCCESS";
 export const DELETE_USER_LIST_BEGIN = "DELETE_USER_LIST_BEGIN";
 export const DELETE_USER_LIST_SUCCESS = "DELETE_USER_LIST_SUCCESS";
 
+export const DELETE_USER_LIST_ITEM_BEGIN = "DELETE_USER_LIST_ITEM_BEGIN";
+export const DELETE_USER_LIST_ITEM_SUCCESS = "DELETE_USER_LIST_ITEM_SUCCESS";
+
 //changing interface to a singular list item + adding items to said list
 export const SET_ACTIVE_LIST = "SET_ACTIVE_LIST";
 export const SET_INSIDE_LIST = "SET_INSIDE_LIST";

@@ -90,9 +90,27 @@ const getAllItems = async (req, res) => {
 };
 
 const deleteItem = async (req, res) => {
-  console.log("deleteItem");
-  res.send("deleteItem");
+  const { itemId } = req.params;
+
+  const item = await UserCustomListItem.findOne({ _id: itemId });
+
+  console.log("req.params");
+  console.log(req.params);
+  console.log("item: " + item);
+
+  if (!item) {
+    throw new NotFoundError(`No item with id: ${itemId}`);
+  }
+
+  if (item) {
+    await item.remove();
+
+    await res.status(StatusCodes.OK).json({ msg: "Success! Item Removed" });
+  }
+
+  // res.send("deleteList");
 };
+
 const updateItem = async (req, res) => {
   console.log("updateItem");
   res.send("updateItem");

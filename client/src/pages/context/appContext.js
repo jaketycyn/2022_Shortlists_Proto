@@ -24,6 +24,7 @@ import {
   CREATE_USER_LIST_ITEM_ERROR,
   GET_USER_LIST_ITEM_BEGIN,
   GET_USER_LIST_ITEM_SUCCESS,
+  DELETE_USER_LIST_ITEM_SUCCESS,
 } from "./actions";
 import reducer from "./reducer";
 import axios from "axios";
@@ -208,6 +209,23 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const deleteUserCreatedListItem = async (itemId) => {
+    console.log("itemId inside appContext:");
+    console.log(itemId);
+    dispatch({ type: DELETE_USER_LIST_BEGIN });
+    try {
+      await authFetch.delete(`/useritems/${itemId}`);
+      console.log("delete userItem should fire from here");
+      dispatch({ type: DELETE_USER_LIST_ITEM_SUCCESS });
+      dispatch({ type: CLEAR_VALUES });
+      await getUserCreatedLists();
+      await getUserCreatedListItems();
+    } catch (error) {
+      console.log(error);
+      console.log("logout user enter here");
+    }
+  };
+
   const setActiveList = async (listId) => {
     console.log("listId in appContext");
     console.log(listId);
@@ -357,6 +375,7 @@ const AppProvider = ({ children }) => {
         getUserCreatedLists,
         setEditUserCreatedList,
         deleteUserCreatedList,
+        deleteUserCreatedListItem,
         setActiveList,
         setInsideList,
         createUserListItem,

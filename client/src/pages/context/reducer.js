@@ -23,6 +23,8 @@ import {
   CREATE_USER_LIST_ITEM_ERROR,
   GET_USER_LIST_ITEM_BEGIN,
   GET_USER_LIST_ITEM_SUCCESS,
+  DELETE_USER_LIST_ITEM_BEGIN,
+  DELETE_USER_LIST_ITEM_SUCCESS,
   //SENDING TO FRIENDS
   SET_FRIEND_IDENTIFIER,
 } from "./actions";
@@ -132,6 +134,18 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "success",
       alertText: "User List Deleted",
+    };
+  }
+  if (action.type === DELETE_USER_LIST_ITEM_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === DELETE_USER_LIST_ITEM_SUCCESS) {
+    return {
+      ...state,
+      isLoading: true,
+      showAlert: true,
+      alertType: "success",
+      alertText: "User List Item Deleted",
     };
   }
   if (action.type === SET_ACTIVE_LIST) {

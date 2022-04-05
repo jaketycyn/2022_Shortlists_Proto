@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
-const Wrapper = styled.article`
+const ItemWrapper = styled.article`
   //grid
   display: grid;
+  grid-template-columns: 5fr 1fr 1fr;
+  grid-template-areas: "main secondary";
   grid-gap: 1em;
-  background: ${(props) => props.theme.colors.mainPink};
+  background: ${(props) => props.theme.colors.mainWhite};
   /* margin: 10px 50px 20px; */
   //text
   text-align: center;
-
-  .list-input {
-    background: ${(props) => props.theme.colors.mainBlue};
-  }
+  height: 7em;
+  margin: 1em 2em;
 
   //basesetup/paramets of cards
 
@@ -29,7 +29,6 @@ const Wrapper = styled.article`
   &:hover {
     box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.55);
   }
-  /* 
 
   .main {
     grid-area: main;
@@ -56,7 +55,7 @@ const Wrapper = styled.article`
     //background: ${(props) => props.theme.colors.errorRed};
     height: 5em;
     width: 5em;
-  } */
+  }
 `;
 
-export default Wrapper;
+export default ItemWrapper;

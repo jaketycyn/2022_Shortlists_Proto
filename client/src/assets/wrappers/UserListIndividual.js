@@ -2,16 +2,9 @@ import styled from "styled-components";
 
 const Wrapper = styled.article`
   //grid
-  display: grid;
-  grid-gap: 1em;
-  background: ${(props) => props.theme.colors.mainPink};
+  background-color: ${(props) => props.theme.colors.mainOrange};
   /* margin: 10px 50px 20px; */
   //text
-  text-align: center;
-
-  .list-input {
-    background: ${(props) => props.theme.colors.mainBlue};
-  }
 
   //basesetup/paramets of cards
 
@@ -30,23 +23,7 @@ const Wrapper = styled.article`
     box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.55);
   }
   /* 
-
-  .main {
-    grid-area: main;
-    font-size: 2rem;
-    margin: 5px 5px;
-    background: ${(props) => props.theme.colors.mainYellow};
-    place-self: center stretch;
-  }
-  .secondary {
-    grid-column: 2 / 4;
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-template-areas: "share delete";
-    margin: 5px 5px;
-    place-self: center stretch;
-  }
-
+  // can be used for individual items later
   .share {
     //background: ${(props) => props.theme.colors.mainBlue};
     height: 5em;

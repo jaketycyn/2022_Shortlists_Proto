@@ -4,6 +4,7 @@ import UserList from "./UserList";
 //jobscontainer wrapper/asset will need to be changed much later on to UserList and however we want to style it
 import Wrapper from "../assets/wrappers/UserListsContainer";
 import UserListIndividual from "./UserListIndividual";
+import UserListCreation from "./UserListCreation";
 
 const UserListContainer = () => {
   const {
@@ -31,6 +32,7 @@ const UserListContainer = () => {
   if (totalUserCreatedList === 0) {
     return (
       <Wrapper>
+        <UserListCreation />
         <div className="center-content">
           <h2>No Lists. Please create one above</h2>
         </div>
@@ -46,7 +48,8 @@ const UserListContainer = () => {
         found
       </h5>
        */}
-      <div className="mapTest">
+      <UserListCreation />
+      <div className="list-input">
         {userCreatedList.map((list) => {
           return <UserList key={list._id} {...list} />;
         })}
