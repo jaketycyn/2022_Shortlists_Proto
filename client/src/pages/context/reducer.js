@@ -53,6 +53,7 @@ const reducer = (state, action) => {
       isLoading: false,
       listTitle: "",
       itemTitle: "",
+      friendTitle: "",
     };
 
     return {

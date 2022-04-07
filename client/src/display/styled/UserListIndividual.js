@@ -15,6 +15,8 @@ export const CardHeader = styled.header`
   display: grid;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  align-items: center;
   //background: ${(props) => props.theme.colors.secondaryDark};
 `;
 
@@ -22,11 +24,6 @@ export const CardHeading = styled.h1`
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-`;
-
-export const CardBody = styled.div`
-  padding-right: 32px;
-  padding-left: 32px;
 `;
 
 export const CardFieldset = styled.fieldset`
@@ -67,35 +64,16 @@ export const CardInput = styled.input`
   }
 `;
 
-export const CardIcon = styled.span`
-  color: #666;
+export const ShareIcon = styled.div`
+  display: grid;
+  color: ${(props) => props.theme.colors.black};
   cursor: pointer;
-  opacity: 0.25;
-  transition: opacity 0.25s ease-in;
+  margin-top: 0.75rem;
+  width: 50px !important;
+  height: 50px !important;
 
-  &:hover {
-    opacity: 0.95;
-  }
-
-  ${(props) =>
-    props.big &&
-    css`
-      font-size: 26px;
-    `}
-
-  ${(props) =>
-    props.eye &&
-    css`
-      position: absolute;
-      top: 8px;
-      right: 0;
-    `}
-
-  ${(props) =>
-    props.small &&
-    css`
-      font-size: 14px;
-    `}
+  //margin: auto seems to center the icon within the div properly
+  margin: auto;
 `;
 
 export const CardOptionsNote = styled.small`

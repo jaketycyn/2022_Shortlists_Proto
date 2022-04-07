@@ -348,6 +348,7 @@ const AppProvider = ({ children }) => {
         itemsToCopy,
         friendIdentifier,
       });
+      clearValues();
     } catch (error) {
       console.log(error.response);
       console.log("error fired");

@@ -16,12 +16,15 @@ import {
   CardOptionsNote,
   CardButton,
   CardLink,
+  ShareIcon,
 } from "../display/styled/UserListIndividual";
 import { ItemHeader, ItemIcon, ItemWrapper } from "../display/styled/UserItems";
 import { FormRow, Alert } from ".";
 
+import SendToModal from "../display/modals/SendTo";
 import DeletionModal from "../display/modals/Deletion";
 
+import { Share } from "@styled-icons/bootstrap/Share";
 import { Trash } from "@styled-icons/bootstrap/Trash";
 
 const UserListIndividual = ({ _id }) => {
@@ -29,6 +32,7 @@ const UserListIndividual = ({ _id }) => {
     activeList,
     isLoading,
     clearAlert,
+    clearValues,
     displayAlert,
     showAlert,
     itemTitle,
@@ -41,8 +45,14 @@ const UserListIndividual = ({ _id }) => {
     sendListToFriend,
   } = useAppContext();
 
+  const [sendIsOpen, setSendIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [opacity, setOpacity] = useState(0);
+
+  function toggleSendModal(e) {
+    setOpacity(0);
+    setSendIsOpen(!sendIsOpen);
+  }
 
   function toggleDeleteModal(e) {
     setOpacity(0);
@@ -114,26 +124,41 @@ const UserListIndividual = ({ _id }) => {
         <CardHeader>
           <CardHeading>{title}</CardHeading>
           {showAlert && <Alert />}
-          <CardFieldset>
-            <CardInput
+
+          <ShareIcon onClick={() => clearValues()}>
+            <Share onClick={() => toggleSendModal(_id)} />
+          </ShareIcon>
+          <SendToModal
+            isOpen={sendIsOpen}
+            afterOpen={afterOpen}
+            beforeClose={beforeClose}
+            onBackgroundClick={toggleSendModal}
+            onEscapeKeydown={toggleSendModal}
+            opacity={opacity}
+            backgroundProps={{ opacity }}
+          >
+            <h4>Enter Friend's contact info below:</h4>
+            <FormRow
+              className="center-align"
               type="text"
-              placeholder="Enter Friends Name"
+              labelText="Email:"
               name="friendTitle"
               value={friendTitle}
-              onChange={handleItemInput}
-            />
-          </CardFieldset>
-
-          <CardFieldset>
-            <CardButton
+              handleChange={handleItemInput}
+            ></FormRow>
+            <button
               type="submit"
               className="btn btn-block submit-btn"
               onClick={handleSubmit}
               disabled={isLoading}
             >
               Send List to Friend
-            </CardButton>
-          </CardFieldset>
+            </button>
+            <button className="close" onClick={() => toggleSendModal()}>
+              Close
+            </button>
+          </SendToModal>
+
           <CardFieldset>
             <CardInput
               type="text"
@@ -156,6 +181,9 @@ const UserListIndividual = ({ _id }) => {
           </CardFieldset>
         </CardHeader>
         {/* Items */}
+        {filteredListByParentId.length > 0 ? null : (
+          <CardHeading>No items in list. Add one above</CardHeading>
+        )}
         <div>
           {filteredListByParentId.map((item) => {
             return (

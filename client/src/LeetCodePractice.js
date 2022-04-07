@@ -85,3 +85,87 @@ function max_sum_of_subarrays(K, arr) {
 
 const max = max_sum_of_subarrays(3, [2, 1, 5, 1, 3, 2]);
 console.log(` Max sum of subarrays is equal to ${max}`);
+
+`Longest Substring with K Distinct Characters (medium)`;
+
+("find the longest substring in it with no more than `K` distinct characters");
+
+const string = "araaci";
+const k = 2;
+
+function longSubStrKDinstinct(str, k) {
+  let windowStart = 0;
+  let maxLength = 0;
+  let charFrequency = {};
+
+  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
+    const rightChar = str[windowEnd];
+    if (!(rightChar in charFrequency)) {
+      charFrequency[rightChar] = 0;
+    }
+    charFrequency[rightChar] += 1;
+
+    while (Object.keys(charFrequency).length > k) {
+      const leftChar = str[windowStart];
+      charFrequency[leftChar] -= 1;
+      if (charFrequency[leftChar] === 0) {
+        delete charFrequency[leftChar];
+      }
+      windowStart += 1;
+    }
+    maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+  }
+
+  return maxLength;
+}
+
+const Fruit = ["A", "B", "C", "A", "C"];
+const k = 2;
+
+function fruitPicker(fruit, k) {
+  let windowStart = 0;
+  let maxLength = 0;
+  let fruitFreq = {};
+  for (let windowEnd = 0; windowEnd < fruit.length; windowEnd++) {
+    const rightFruit = fruits[windowEnd];
+    if (!(rightChar in fruitFreq)) {
+      fruitFreq[rightChar] = 0;
+    }
+    fruitFreq[rightChar] += 1;
+
+    while (Object.keys(fruitFreq).length > k) {
+      const leftChar = fruit[windowStart];
+      fruitFreq[leftChar] -= 1;
+      if (fruitFreq[leftChar] === 0) {
+        delete fruitFreq[leftChar];
+      }
+      windowStart += 1;
+    }
+    maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+  }
+}
+
+const fruits = ["A", "B", "C", "A", "C"];
+const kval = 2;
+
+function fruitsIntoBasket(fruits, kval) {
+  let windowStart = 0;
+  let maxLength = 0;
+  let fruitFreq = {};
+  for (let windowEnd = 0; windowEnd < fruits.length; windowEnd++) {
+    const rightFruit = fruits[windowEnd];
+    if (!(rightFruit in fruitFreq)) {
+      fruitFreq[rightFruit] = 0;
+    }
+    fruitFreq[rightFruit] += 1;
+    while (Object.keys(fruitFreq).length > kval) {
+      const leftFruit = fruits[windowStart];
+      fruitFreq[leftFruit] -= 1;
+      if (fruitFreq[leftFruit] === 0) {
+        delete fruitFreq[leftFruit];
+      }
+      windowStart += 1;
+    }
+    maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+  }
+}
