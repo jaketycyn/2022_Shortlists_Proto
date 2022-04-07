@@ -2,24 +2,24 @@ import styled, { css } from "styled-components";
 
 export const Wrapper = styled.article`
   display: grid;
-  grid-template-columns: 4fr 1fr;
+
   height: 100vh;
   width: 100%;
-
   justify-content: center;
   text-align: center;
-  margin: auto;
-  background-color: ${(props) => props.theme.colors.secondary};
+  //margin: auto;
+  //background: ${(props) => props.theme.colors.pink};
 `;
 
 export const CardHeader = styled.header`
   display: grid;
   justify-content: center;
   align-items: center;
+  //background: ${(props) => props.theme.colors.secondaryDark};
 `;
 
 export const CardHeading = styled.h1`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
 `;

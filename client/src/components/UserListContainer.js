@@ -41,7 +41,7 @@ const UserListContainer = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper className="userListContainerOrigin">
       {/* Hidding for now. Also will need to fix plurality later
       <h5 className="list-total-display">
         {totalUserCreatedList} list {totalUserCreatedList.length > 1 && "s"}{" "}

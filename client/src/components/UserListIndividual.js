@@ -17,7 +17,7 @@ import {
   CardButton,
   CardLink,
 } from "../display/styled/UserListIndividual";
-import ItemWrapper from "../display/styled/UserItems";
+import { ItemHeader, ItemIcon, ItemWrapper } from "../display/styled/UserItems";
 import { FormRow, Alert } from ".";
 
 import DeletionModal from "../display/modals/Deletion";
@@ -151,7 +151,7 @@ const UserListIndividual = ({ _id }) => {
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              Send List to Friend
+              Add Item
             </CardButton>
           </CardFieldset>
         </CardHeader>
@@ -160,12 +160,14 @@ const UserListIndividual = ({ _id }) => {
           {filteredListByParentId.map((item) => {
             return (
               <ItemWrapper key={item._id} itemtitle={item.itemtitle}>
-                {item.itemTitle}
+                <ItemHeader>{item.itemTitle}</ItemHeader>
                 <div
                   className="delete"
                   onClick={() => toggleDeleteModal(item._id)}
                 >
-                  <Trash />
+                  <ItemIcon className="big">
+                    <Trash />
+                  </ItemIcon>
                   {/* Delete Modal */}
                   <DeletionModal
                     isOpen={deleteIsOpen}

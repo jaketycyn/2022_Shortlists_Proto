@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 const Wrapper = styled.article`
   //grid
-
+  height: 100vh;
   grid-gap: 1em;
-  background: ${(props) => props.theme.colors.mainPink};
+  /* background: ${(props) => props.theme.colors.pink}; */
   /* margin: 10px 50px 20px; */
   //text
-  text-align: center;
 
   .list-input {
     background: ${(props) => props.theme.colors.white};
