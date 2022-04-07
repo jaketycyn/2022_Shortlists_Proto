@@ -74,6 +74,16 @@ const UserListCreation = () => {
                 Create new List
               </button>
             </div>
+            <div className="btn-container">
+              <button
+                type="submit"
+                className="submit-btn"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                Create New Prompt
+              </button>
+            </div>
           </CardFieldset>
         </form>
       </CardBody>
