@@ -6,6 +6,10 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  LOGOUT_USER,
   HANDLE_CHANGE,
   //LIST
   CREATE_USER_LIST_BEGIN,
@@ -40,6 +44,7 @@ const reducer = (state, action) => {
       alertText: "Please provide all values!",
     };
   }
+
   if (action.type === CLEAR_ALERT) {
     return {
       ...state,
@@ -83,6 +88,14 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+  if (action.type === LOGOUT_USER) {
+    return {
+      ...state,
+      isLoading: true,
+      user: null,
+      token: null,
     };
   }
   if (action.type === HANDLE_CHANGE) {

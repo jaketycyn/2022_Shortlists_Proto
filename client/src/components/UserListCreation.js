@@ -11,6 +11,7 @@ import { Alert, FormRow } from ".";
 const UserListCreation = () => {
   const {
     isLoading,
+    logoutUser,
     clearAlert,
     displayAlert,
     showAlert,
@@ -71,17 +72,22 @@ const UserListCreation = () => {
                 onClick={handleSubmit}
                 disabled={isLoading}
               >
-                Create new List
+                Create Classic List
               </button>
-            </div>
-            <div className="btn-container">
               <button
                 type="submit"
                 className="submit-btn"
                 onClick={handleSubmit}
                 disabled={isLoading}
               >
-                Create New Prompt
+                Create Social List
+              </button>
+              <button
+                className="submit-btn"
+                onClick={() => logoutUser()}
+                disabled={isLoading}
+              >
+                Logout
               </button>
             </div>
           </CardFieldset>

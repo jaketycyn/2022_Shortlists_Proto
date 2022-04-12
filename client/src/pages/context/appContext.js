@@ -6,6 +6,10 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  LOGOUT_USER,
   HANDLE_CHANGE,
   //USER
   CREATE_USER_LIST_BEGIN,
@@ -146,6 +150,35 @@ const AppProvider = ({ children }) => {
   };
 
   //UPDATE USER SECTION
+
+  // const updateUser = async ({ currentUser, endpoint }) => {
+  //   dispatch({ type: UPDATE_USER_BEGIN });
+  //   try {
+  //     const { data } = await authFetch.patch(`/auth/${endPoint}`, currentUser);
+  //     console.log("data: " + data);
+
+  //     const { user, token } = data;
+  //     dispatch({
+  //       type: SETUP_USER_SUCCESS,
+  //       payload: { user, token, alertText },
+  //     });
+  //     addUserToLocalStorage({ user, token });
+  //   } catch (error) {
+  //     dispatch({
+  //       type: SETUP_USER_ERROR,
+  //       payload: { msg: error.response.data.msg },
+  //     });
+  //   }
+  //   clearAlert();
+
+  //   //added clear values here due to isLoading to be marked True on UserSetup Success.... Might be a better spot to put it but currently, no issues. 3/18
+  //   clearValues();
+  // };
+
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
 
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
@@ -371,6 +404,7 @@ const AppProvider = ({ children }) => {
         clearValues,
         displayAlert,
         setupUser,
+        logoutUser,
         handleChange,
         createUserList,
         getUserCreatedLists,
