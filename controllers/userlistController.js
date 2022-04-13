@@ -38,8 +38,27 @@ const getAllLists = async (req, res) => {
     numOfPages: 1,
   });
 };
+
 const updateList = async (req, res) => {
-  res.send("updateList");
+  res.send("updating list test");
+};
+
+const AddContributorsToList = async (req, res) => {
+  const { listId } = req.params;
+
+  const list = await UserCustomList.findOne({ _id: listId });
+
+  console.log("req.params");
+  console.log(req.params);
+  console.log("list" + list);
+
+  if (!list) {
+    throw new NotFoundError(`No list with id: ${listId}`);
+  }
+
+  //await res.status(StatusCodes.OK).json({ msg: "Success! List Removed" });
+
+  res.send("AddContributorsToList list test");
 };
 
 const deleteList = async (req, res) => {
@@ -131,6 +150,7 @@ export {
   createSentList,
   getSentListId,
   updateList,
+  AddContributorsToList,
   deleteList,
   showListInfo,
 };

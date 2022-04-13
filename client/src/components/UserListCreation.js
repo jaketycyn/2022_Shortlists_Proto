@@ -42,6 +42,27 @@ const UserListCreation = () => {
     await getUserCreatedLists();
   };
 
+  const handleSubmitSocialList = async (e) => {
+    e.preventDefault();
+    if (!listTitle) {
+      displayAlert();
+      setTimeout(5000);
+      return;
+    }
+
+    //can add is editing functionality later if needed
+    // if (isEditing) {
+    //   editUserList()
+    //   return
+    // }
+    console.log("inside social list creation");
+    // await createUserList();
+
+    // //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
+    await clearAlert();
+    // await getUserCreatedLists();
+  };
+
   const handleListInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -77,11 +98,12 @@ const UserListCreation = () => {
               <button
                 type="submit"
                 className="submit-btn"
-                onClick={handleSubmit}
+                onClick={handleSubmitSocialList}
                 disabled={isLoading}
               >
                 Create Social List
               </button>
+              {/*Logout button test which will be removed later just keeping now for easy tests */}
               <button
                 className="submit-btn"
                 onClick={() => logoutUser()}
