@@ -80,10 +80,15 @@ const UserList = ({ _id, listTitle }) => {
     }
   };
 
-  useEffect(() => {
-    getUserCreatedListItems();
-    console.log("initial firing of getUserCreatedListItems");
-  }, [showAlert === true]);
+  useEffect(
+    () => {
+      getUserCreatedListItems();
+      console.log("initial firing of getUserCreatedListItems");
+    },
+    setTimeout([showAlert === true]),
+    5000
+  );
+  //Addedtime out above so when no input is put it will display the alert error message for more inputs. otherwise it was auto retrieving lists nearly instantly.
   //
   return (
     <Wrapper>
