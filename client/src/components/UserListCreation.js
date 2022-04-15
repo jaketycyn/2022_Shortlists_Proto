@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../pages/context/appContext";
 import TradListModal from "../display/modals/TradList";
 import SocialListModal from "../display/modals/SocialList";
@@ -62,17 +62,9 @@ const UserListCreation = () => {
       return;
     }
     await createUserSocialList();
-    //can add is editing functionality later if needed
-    // if (isEditing) {
-    //   editUserList()
-    //   return
-    // }
-
-    // await createUserList();
-
-    // //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
+    await getUserCreatedLists();
     await clearAlert();
-    // await getUserCreatedLists();
+    setSocialIsOpen(false);
   };
 
   const handleListInput = (e) => {
@@ -106,6 +98,10 @@ const UserListCreation = () => {
       setTimeout(resolve, 300);
     });
   }
+
+  useEffect(() => {
+    getUserCreatedLists();
+  }, []);
 
   return (
     <Wrapper>
@@ -200,48 +196,13 @@ const UserListCreation = () => {
               </form>
             </SocialListModal>
           </div>
-
-          {/* 
-
-            <div className="delete" onClick={() => toggleSocialListModal()}>
-              <SocialListModal
-                isOpen={socialIsOpen}
-                afterOpen={afterOpen}
-                beforeClose={beforeClose}
-                onBackgroundClick={toggleSocialListModal}
-                onEscapeKeydown={toggleSocialListModal}
-                opacity={opacity}
-                backgroundProps={{ opacity }}
-              >
-                <h4>Delete this List?</h4>
-                <button
-                  className="delete"
-                  onClick={() => console.log("button pressed")}
-                >
-                  Yes
-                </button>
-                <button
-                  className="close"
-                  onClick={() => toggleSocialListModal()}
-                >
-                  No
-                </button>
-              </SocialListModal>
-
-         
-             
-
-              
-              <button
-                className="submit-btn"
-                onClick={() => logoutUser()}
-                disabled={isLoading}
-              >
-                Logout
-              </button>
-              
-            </div>
-                 */}
+          <button
+            className="submit-btn"
+            onClick={() => logoutUser()}
+            disabled={isLoading}
+          >
+            Logout
+          </button>
         </CardFieldset>
       </CardBody>
     </Wrapper>

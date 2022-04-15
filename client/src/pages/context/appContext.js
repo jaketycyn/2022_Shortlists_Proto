@@ -217,7 +217,6 @@ const AppProvider = ({ children }) => {
 
       await authFetch.post(`/userlists/${listTitle}/`, { friendIdentifier });
       dispatch({ type: CREATE_USER_LIST_SUCCESS });
-      dispatch({ type: CLEAR_VALUES });
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({

@@ -17,10 +17,16 @@ const UserListContainer = () => {
     getUserCreatedLists,
   } = useAppContext();
 
-  useEffect(() => {
-    getUserCreatedLists();
-  }, []);
-
+  const UserSocialLists = userCreatedList.filter(
+    (item) => item.contributors.length > 0
+  );
+  console.log("UserSocialLists");
+  console.log(UserSocialLists);
+  const UserTradLists = userCreatedList.filter(
+    (item) => item.contributors.length === 0
+  );
+  console.log("UserTradLists");
+  console.log(UserTradLists);
   if (insideList) {
     return (
       <Wrapper>
@@ -42,15 +48,17 @@ const UserListContainer = () => {
 
   return (
     <Wrapper className="userListContainerOrigin">
-      {/* Hidding for now. Also will need to fix plurality later
-      <h5 className="list-total-display">
-        {totalUserCreatedList} list {totalUserCreatedList.length > 1 && "s"}{" "}
-        found
-      </h5>
-       */}
       <UserListCreation />
+      <h3>Classic Lists</h3>
       <div className="list-input">
-        {userCreatedList.map((list) => {
+        {/* Previously mapped userCreatedList to show all lists. Now using filter on userCreatedList to show areas of trad lists vs social lists for testing purposes. */}
+        {UserTradLists.map((list) => {
+          return <UserList key={list._id} {...list} />;
+        })}
+      </div>
+      <h3>Social Lists</h3>
+      <div className="list-input">
+        {UserSocialLists.map((list) => {
           return <UserList key={list._id} {...list} />;
         })}
       </div>
