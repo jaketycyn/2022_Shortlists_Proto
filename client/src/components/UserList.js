@@ -83,7 +83,7 @@ const UserList = ({ _id, listTitle }) => {
   useEffect(
     () => {
       getUserCreatedListItems();
-      console.log("initial firing of getUserCreatedListItems");
+      console.log("getUserCreatedListItems - UserList");
     },
     setTimeout([showAlert === true]),
     5000

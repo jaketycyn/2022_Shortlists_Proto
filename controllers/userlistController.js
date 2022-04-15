@@ -27,6 +27,30 @@ const createList = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ userList });
 };
 
+const createSocialList = async (req, res) => {
+  const { listTitle } = req.params;
+  const { friendIdentifier } = req.body;
+  friendIdentifier;
+  console.log("Inside createSocialList");
+  console.log("req.params");
+  console.log(req.params);
+  console.log("req.body");
+  console.log(req.body);
+  if (!listTitle) {
+    throw new BadRequestError("Please provide a title for your list");
+  }
+  const listObj = {};
+  listObj.listTitle = listTitle;
+  listObj.createdById = req.user.userId;
+  listObj.ownerId = req.user.userId;
+  listObj.contributors = friendIdentifier;
+  console.log("listObjownerId: " + listObj.ownerId);
+  console.log("listObj.contributors: " + listObj.contributors);
+  const userList = await UserCustomList.create(listObj);
+  res.status(StatusCodes.CREATED).json({ userList });
+  res.send("socialist list creation");
+};
+
 const getAllLists = async (req, res) => {
   const userCreatedList = await UserCustomList.find({
     ownerId: req.user.userId,
@@ -145,8 +169,9 @@ const showListInfo = async (req, res) => {
 };
 
 export {
-  createList,
   getAllLists,
+  createList,
+  createSocialList,
   createSentList,
   getSentListId,
   updateList,

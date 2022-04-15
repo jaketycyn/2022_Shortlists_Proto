@@ -108,7 +108,7 @@ const UserListIndividual = ({ _id }) => {
 
   useEffect(() => {
     getUserCreatedListItems();
-    console.log("initial firing of getUserCreatedListItems");
+    console.log("getUserCreatedListItems - UserListIndividual");
   }, []);
 
   const parentListId = activeList[0]._id;

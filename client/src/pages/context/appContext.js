@@ -203,6 +203,88 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  //!Social List = Prompt
+  const createUserSocialList = async () => {
+    dispatch({ type: CREATE_USER_LIST_BEGIN });
+    const { friendTitle, listTitle } = state;
+    const userIdentifier = friendTitle;
+
+    try {
+      const { data } = await authFetch.get(`/auth/finduser/${userIdentifier}`);
+      const friendIdentifier = data.foundUser._id;
+      console.log("friendIdentifier " + friendIdentifier);
+      console.log(friendIdentifier);
+
+      await authFetch.post(`/userlists/${listTitle}/`, { friendIdentifier });
+      dispatch({ type: CREATE_USER_LIST_SUCCESS });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_USER_LIST_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+  };
+
+  //?Example of sendlIst to friend that i'll use for baseline of createUserSocialList
+  // const sendListToFriend = async () => {
+  //   const { activeList, friendTitle, userCreatedItems } = state;
+  //   const sentListTitle = activeList[0].listTitle;
+  //   const activeListId = activeList[0]._id;
+  //   const listCreatorId = activeList[0].createdById;
+  //   console.log("activeListId: " + activeListId);
+  //   try {
+  //     //TODO: can make userIdentifier the global state tracker in future
+  //     const userIdentifier = friendTitle;
+  //     console.log("userIdentifier " + userIdentifier);
+  //     //dispatch({ type: GET_USER_ID})
+
+  //     //!FIND USER
+  //     const { data } = await authFetch.get(`/auth/finduser/${userIdentifier}`);
+  //     const friendIdentifier = data.foundUser._id;
+
+  //     console.log("friendIdentifier " + friendIdentifier);
+  //     console.log(friendIdentifier);
+
+  //     //!CREATE COPY LIST
+  //     await authFetch.post("/userlists/createSentList", {
+  //       friendIdentifier,
+  //       listCreatorId,
+  //       sentListTitle,
+  //     });
+
+  //     //!GET COPY LIST ID
+  //     const returnData = await authFetch.get(
+  //       `/userlists/createSentList/${friendIdentifier}/${listCreatorId}/${sentListTitle}`
+  //     );
+  //     console.log(returnData.data._id);
+
+  //     const sentListId = returnData.data._id;
+  //     console.log("sentListId: " + sentListId);
+
+  //     console.log("activeListId: " + activeListId);
+  //     //!CREATE ITEMS FOR COPY LIST
+
+  //     // might swap parentListId to ownerLIstId to allow users in the future to share lists that they didnt' create but were shared to them.
+  //     console.log("userCreatedItems: " + userCreatedItems);
+  //     const itemsToCopy = userCreatedItems.filter(
+  //       (item) => item.parentListId === activeListId
+  //     );
+  //     console.log("itemsToCopy");
+  //     console.log(itemsToCopy);
+  //     await authFetch.post("/useritems/copy", {
+  //       sentListId,
+  //       itemsToCopy,
+  //       friendIdentifier,
+  //     });
+  //     clearValues();
+  //   } catch (error) {
+  //     console.log(error.response);
+  //     console.log("error fired");
+  //   }
+  // };
+
   const getUserCreatedLists = async () => {
     let url = "/userlists";
 
@@ -408,6 +490,7 @@ const AppProvider = ({ children }) => {
         logoutUser,
         handleChange,
         createUserList,
+        createUserSocialList,
         getUserCreatedLists,
         setEditUserCreatedList,
         deleteUserCreatedList,
