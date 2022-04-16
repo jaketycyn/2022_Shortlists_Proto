@@ -48,7 +48,7 @@ const initialState = {
   userLocation: "",
   //userList initial state -- using user as a prefix to denote full user controlled/created elements in case of separation or adding in lists belonging to outside entities. EX: Friend's movie list or curated list from a magazine/publication
   isEditing: false,
-  insideList: false,
+  insideList: "",
   activeList: [],
   editListId: "",
   listTitle: "",
@@ -327,7 +327,7 @@ const AppProvider = ({ children }) => {
       //console.log("delete userlist should fire from here");
       dispatch({ type: DELETE_USER_LIST_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
-      await getUserCreatedLists();
+      //await getUserCreatedLists();
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
@@ -379,9 +379,11 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const setInsideList = () => {
+  const setInsideList = (status) => {
+    console.log("status");
+    console.log(status);
     try {
-      dispatch({ type: SET_INSIDE_LIST });
+      dispatch({ type: SET_INSIDE_LIST, payload: { status } });
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");

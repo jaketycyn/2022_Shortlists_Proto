@@ -12,7 +12,7 @@ import { FormRow } from ".";
 import { Share } from "@styled-icons/bootstrap/Share";
 import { Trash } from "@styled-icons/bootstrap/Trash";
 
-const UserList = ({ _id, listTitle }) => {
+const ContributorUserList = ({ _id, listTitle }) => {
   const {
     isLoading,
     friendTitle,
@@ -31,8 +31,9 @@ const UserList = ({ _id, listTitle }) => {
   const [opacity, setOpacity] = useState(0);
 
   const goInsideList = async (_id) => {
-    await setActiveList(_id, "received");
-    await setInsideList();
+    const status = "received";
+    await setActiveList(_id, status);
+    await setInsideList(status);
   };
 
   function toggleSendModal(e) {
@@ -98,7 +99,7 @@ const UserList = ({ _id, listTitle }) => {
       </div>
 
       {/* Delete List*/}
-
+      <div>ContributorUserList</div>
       <div className="delete" onClick={() => toggleDeleteModal(_id)}>
         <Trash />
         {/* Delete Modal */}
@@ -124,4 +125,4 @@ const UserList = ({ _id, listTitle }) => {
   );
 };
 
-export default UserList;
+export default ContributorUserList;

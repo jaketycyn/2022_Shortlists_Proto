@@ -5,6 +5,7 @@ import UserList from "./UserList";
 import Wrapper from "../display/styled/UserListsContainer";
 
 import ContributorUserList from "./ContributorUserList";
+import ContributorListIndividual from "./ContributorListIndividual";
 import UserListIndividual from "./UserListIndividual";
 import UserListCreation from "./UserListCreation";
 
@@ -18,6 +19,7 @@ const UserListContainer = () => {
     totalUserCreatedList,
     page,
     getUserCreatedLists,
+    user,
   } = useAppContext();
 
   //
@@ -32,10 +34,21 @@ const UserListContainer = () => {
   );
   console.log("UserTradLists");
   console.log(UserTradLists);
-  if (insideList) {
+
+  if (insideList === "created") {
     return (
       <Wrapper>
+        <div>created</div>
         <UserListIndividual />
+      </Wrapper>
+    );
+  }
+
+  if (insideList === "received") {
+    return (
+      <Wrapper>
+        <div>received</div>
+        <ContributorListIndividual />
       </Wrapper>
     );
   }
