@@ -6,6 +6,10 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  LOGOUT_USER,
   HANDLE_CHANGE,
   //LIST
   CREATE_USER_LIST_BEGIN,
@@ -40,6 +44,7 @@ const reducer = (state, action) => {
       alertText: "Please provide all values!",
     };
   }
+
   if (action.type === CLEAR_ALERT) {
     return {
       ...state,
@@ -85,6 +90,14 @@ const reducer = (state, action) => {
       alertText: action.payload.msg,
     };
   }
+  if (action.type === LOGOUT_USER) {
+    return {
+      ...state,
+      isLoading: true,
+      user: null,
+      token: null,
+    };
+  }
   if (action.type === HANDLE_CHANGE) {
     return {
       ...state,
@@ -121,6 +134,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       userCreatedList: action.payload.userCreatedList,
+      userContributorList: action.payload.userContributorList,
       totalUserCreatedList: action.payload.totalUserCreatedList,
       numOfPages: action.payload.numOfPages,
     };
@@ -157,9 +171,11 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === SET_INSIDE_LIST) {
+    console.log("action.payload.status");
+    console.log(action.payload.status);
     return {
       ...state,
-      insideList: true,
+      insideList: action.payload.status,
     };
   }
 
@@ -191,6 +207,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      userOwnedItems: action.payload.userOwnedItems,
       userCreatedItems: action.payload.userCreatedItems,
       totalUserCreatedItems: action.payload.totalUserCreatedItems,
     };

@@ -12,13 +12,13 @@ import { FormRow } from ".";
 import { Share } from "@styled-icons/bootstrap/Share";
 import { Trash } from "@styled-icons/bootstrap/Trash";
 
-const UserList = ({ _id, listTitle }) => {
+const ContributorUserList = ({ _id, listTitle }) => {
   const {
     isLoading,
     friendTitle,
     handleChange,
     showAlert,
-    getUserCreatedLists,
+
     getUserCreatedListItems,
     deleteUserCreatedList,
     setActiveList,
@@ -31,7 +31,7 @@ const UserList = ({ _id, listTitle }) => {
   const [opacity, setOpacity] = useState(0);
 
   const goInsideList = async (_id) => {
-    const status = "created";
+    const status = "received";
     await setActiveList(_id, status);
     await setInsideList(status);
   };
@@ -67,11 +67,6 @@ const UserList = ({ _id, listTitle }) => {
   };
 
   //test setup use tutorial setup for final version.
-  const handleDelete = async (_id) => {
-    await deleteUserCreatedList(_id);
-    await getUserCreatedLists();
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (friendTitle) {
@@ -102,67 +97,32 @@ const UserList = ({ _id, listTitle }) => {
       <div className="main" onClick={() => goInsideList(_id)}>
         {listTitle}
       </div>
-      {/* List Title*/}
-      <div className="secondary">
-        <div className="share" onClick={() => setActiveList(_id)}>
-          <Share onClick={() => toggleSendModal(_id)} />
-          <SendToModal
-            isOpen={sendIsOpen}
-            afterOpen={afterOpen}
-            beforeClose={beforeClose}
-            onBackgroundClick={toggleSendModal}
-            onEscapeKeydown={toggleSendModal}
-            opacity={opacity}
-            backgroundProps={{ opacity }}
-          >
-            <h4>Enter Friend's contact info below:</h4>
-            <FormRow
-              className="center-align"
-              type="text"
-              labelText="Email:"
-              name="friendTitle"
-              value={friendTitle}
-              handleChange={handleItemInput}
-            ></FormRow>
-            <button
-              type="submit"
-              className="btn btn-block submit-btn"
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              Send List to Friend
-            </button>
-            <button className="close" onClick={() => toggleSendModal()}>
-              Close
-            </button>
-          </SendToModal>
-        </div>
-        {/* Delete List*/}
 
-        <div className="delete" onClick={() => toggleDeleteModal(_id)}>
-          <Trash />
-          {/* Delete Modal */}
-          <DeletionModal
-            isOpen={deleteIsOpen}
-            afterOpen={afterOpen}
-            beforeClose={beforeClose}
-            onBackgroundClick={toggleDeleteModal}
-            onEscapeKeydown={toggleDeleteModal}
-            opacity={opacity}
-            backgroundProps={{ opacity }}
-          >
-            <h4>Delete this List?</h4>
-            <button className="delete" onClick={() => handleDelete(_id)}>
-              Yes
-            </button>
-            <button className="close" onClick={() => toggleDeleteModal()}>
-              No
-            </button>
-          </DeletionModal>
-        </div>
+      <span></span>
+      {/* Delete List*/}
+      <div className="delete" onClick={() => toggleDeleteModal(_id)}>
+        <Trash />
+        {/* Delete Modal */}
+        <DeletionModal
+          isOpen={deleteIsOpen}
+          afterOpen={afterOpen}
+          beforeClose={beforeClose}
+          onBackgroundClick={toggleDeleteModal}
+          onEscapeKeydown={toggleDeleteModal}
+          opacity={opacity}
+          backgroundProps={{ opacity }}
+        >
+          <h4>Delete this List?</h4>
+          <button className="delete" onClick={() => deleteUserCreatedList(_id)}>
+            Yes
+          </button>
+          <button className="close" onClick={() => toggleDeleteModal()}>
+            No
+          </button>
+        </DeletionModal>
       </div>
     </Wrapper>
   );
 };
 
-export default UserList;
+export default ContributorUserList;

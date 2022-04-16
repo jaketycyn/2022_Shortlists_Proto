@@ -27,11 +27,12 @@ import DeletionModal from "../display/modals/Deletion";
 import { Share } from "@styled-icons/bootstrap/Share";
 import { Trash } from "@styled-icons/bootstrap/Trash";
 
-const UserListIndividual = ({ _id }) => {
+const ContributorListIndividual = ({ _id }) => {
   const {
     activeList,
     isLoading,
     clearAlert,
+    insideList,
     clearValues,
     displayAlert,
     showAlert,
@@ -42,7 +43,6 @@ const UserListIndividual = ({ _id }) => {
     getUserCreatedListItems,
     deleteUserCreatedListItem,
     userCreatedItems,
-    userOwnedItems,
     sendListToFriend,
   } = useAppContext();
 
@@ -77,16 +77,15 @@ const UserListIndividual = ({ _id }) => {
 
   //test setup use tutorial setup for final version.
   const handleSubmit = (e) => {
-    //doing both friend title submit + item list submit in 1 submit button. Could be better to separate, but i believe by setting up explicit "if" statements with variables I'll be able to control for each use case.
     e.preventDefault();
-    if (!itemTitle && !friendTitle) {
+
+    if (!itemTitle) {
       displayAlert();
       return;
     }
 
-    if (itemTitle && !friendTitle) {
+    if (itemTitle) {
       createUserListItem();
-      //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
       clearAlert();
       getUserCreatedListItems();
     }
@@ -94,12 +93,8 @@ const UserListIndividual = ({ _id }) => {
       console.log("friend submit fired");
 
       sendListToFriend();
-      //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
-      // clearAlert();
-      // getUserCreatedListItems();
     }
   };
-
   const handleDeleteItem = async (id) => {
     await deleteUserCreatedListItem(id);
     await getUserCreatedListItems();
@@ -118,7 +113,7 @@ const UserListIndividual = ({ _id }) => {
   }, []);
 
   const parentListId = activeList[0]._id;
-  const filteredListByParentId = userOwnedItems.filter(
+  const filteredListByParentId = userCreatedItems.filter(
     (item) => item.parentListId === parentListId
   );
 
@@ -130,41 +125,6 @@ const UserListIndividual = ({ _id }) => {
         <CardHeader>
           <CardHeading>{title}</CardHeading>
           {showAlert && <Alert />}
-
-          <ShareIcon onClick={() => clearValues()}>
-            <Share onClick={() => toggleSendModal(_id)} />
-          </ShareIcon>
-          <SendToModal
-            isOpen={sendIsOpen}
-            afterOpen={afterOpen}
-            beforeClose={beforeClose}
-            onBackgroundClick={toggleSendModal}
-            onEscapeKeydown={toggleSendModal}
-            opacity={opacity}
-            backgroundProps={{ opacity }}
-          >
-            <h4>Enter Friend's contact info below:</h4>
-            <FormRow
-              className="center-align"
-              type="text"
-              labelText="Email:"
-              name="friendTitle"
-              value={friendTitle}
-              handleChange={handleItemInput}
-            ></FormRow>
-            <button
-              type="submit"
-              className="btn btn-block submit-btn"
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              Send List to Friend
-            </button>
-            <button className="close" onClick={() => toggleSendModal()}>
-              Close
-            </button>
-          </SendToModal>
-
           <CardFieldset>
             <CardInput
               type="text"
@@ -236,4 +196,4 @@ const UserListIndividual = ({ _id }) => {
   );
 };
 
-export default UserListIndividual;
+export default ContributorListIndividual;

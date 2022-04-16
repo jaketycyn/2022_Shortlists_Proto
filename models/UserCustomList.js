@@ -18,6 +18,10 @@ const UserCustomListSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
+    contributors: {
+      type: Array,
+      default: [],
+    },
 
     // not sure on ref/required since on origin creation of a list both will be the same, but on sending the list to someone it'll the person being sent the list's ID will change to OwnerId
     // ref: "User",

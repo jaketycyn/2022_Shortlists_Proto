@@ -6,6 +6,10 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  LOGOUT_USER,
   HANDLE_CHANGE,
   //USER
   CREATE_USER_LIST_BEGIN,
@@ -44,13 +48,15 @@ const initialState = {
   userLocation: "",
   //userList initial state -- using user as a prefix to denote full user controlled/created elements in case of separation or adding in lists belonging to outside entities. EX: Friend's movie list or curated list from a magazine/publication
   isEditing: false,
-  insideList: false,
+  insideList: "",
   activeList: [],
   editListId: "",
   listTitle: "",
   userCreatedList: [],
+  userContributorList: [],
   totalUserCreatedList: 0,
   itemTitle: "",
+  userOwnedItems: [],
   userCreatedItems: [],
   totalUserCreatedItems: 0,
 
@@ -91,6 +97,7 @@ const AppProvider = ({ children }) => {
       console.log(error.response);
       if (error.response.status === 401) {
         console.log("AUTH ERROR");
+        logoutUser();
       }
       return Promise.reject(error);
     }
@@ -147,6 +154,35 @@ const AppProvider = ({ children }) => {
 
   //UPDATE USER SECTION
 
+  // const updateUser = async ({ currentUser, endpoint }) => {
+  //   dispatch({ type: UPDATE_USER_BEGIN });
+  //   try {
+  //     const { data } = await authFetch.patch(`/auth/${endPoint}`, currentUser);
+  //     console.log("data: " + data);
+
+  //     const { user, token } = data;
+  //     dispatch({
+  //       type: SETUP_USER_SUCCESS,
+  //       payload: { user, token, alertText },
+  //     });
+  //     addUserToLocalStorage({ user, token });
+  //   } catch (error) {
+  //     dispatch({
+  //       type: SETUP_USER_ERROR,
+  //       payload: { msg: error.response.data.msg },
+  //     });
+  //   }
+  //   clearAlert();
+
+  //   //added clear values here due to isLoading to be marked True on UserSetup Success.... Might be a better spot to put it but currently, no issues. 3/18
+  //   clearValues();
+  // };
+
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
+
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
@@ -169,16 +205,107 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  //!Social List = Prompt
+  const createUserSocialList = async () => {
+    dispatch({ type: CREATE_USER_LIST_BEGIN });
+    const { friendTitle, listTitle } = state;
+    const userIdentifier = friendTitle;
+
+    try {
+      const { data } = await authFetch.get(`/auth/finduser/${userIdentifier}`);
+      const friendIdentifier = data.foundUser._id;
+      console.log("friendIdentifier " + friendIdentifier);
+      console.log(friendIdentifier);
+
+      await authFetch.post(`/userlists/${listTitle}/`, { friendIdentifier });
+      dispatch({ type: CREATE_USER_LIST_SUCCESS });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_USER_LIST_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+  };
+
+  //?Example of sendlIst to friend that i'll use for baseline of createUserSocialList
+  // const sendListToFriend = async () => {
+  //   const { activeList, friendTitle, userCreatedItems } = state;
+  //   const sentListTitle = activeList[0].listTitle;
+  //   const activeListId = activeList[0]._id;
+  //   const listCreatorId = activeList[0].createdById;
+  //   console.log("activeListId: " + activeListId);
+  //   try {
+  //     //TODO: can make userIdentifier the global state tracker in future
+  //     const userIdentifier = friendTitle;
+  //     console.log("userIdentifier " + userIdentifier);
+  //     //dispatch({ type: GET_USER_ID})
+
+  //     //!FIND USER
+  //     const { data } = await authFetch.get(`/auth/finduser/${userIdentifier}`);
+  //     const friendIdentifier = data.foundUser._id;
+
+  //     console.log("friendIdentifier " + friendIdentifier);
+  //     console.log(friendIdentifier);
+
+  //     //!CREATE COPY LIST
+  //     await authFetch.post("/userlists/createSentList", {
+  //       friendIdentifier,
+  //       listCreatorId,
+  //       sentListTitle,
+  //     });
+
+  //     //!GET COPY LIST ID
+  //     const returnData = await authFetch.get(
+  //       `/userlists/createSentList/${friendIdentifier}/${listCreatorId}/${sentListTitle}`
+  //     );
+  //     console.log(returnData.data._id);
+
+  //     const sentListId = returnData.data._id;
+  //     console.log("sentListId: " + sentListId);
+
+  //     console.log("activeListId: " + activeListId);
+  //     //!CREATE ITEMS FOR COPY LIST
+
+  //     // might swap parentListId to ownerLIstId to allow users in the future to share lists that they didnt' create but were shared to them.
+  //     console.log("userCreatedItems: " + userCreatedItems);
+  //     const itemsToCopy = userCreatedItems.filter(
+  //       (item) => item.parentListId === activeListId
+  //     );
+  //     console.log("itemsToCopy");
+  //     console.log(itemsToCopy);
+  //     await authFetch.post("/useritems/copy", {
+  //       sentListId,
+  //       itemsToCopy,
+  //       friendIdentifier,
+  //     });
+  //     clearValues();
+  //   } catch (error) {
+  //     console.log(error.response);
+  //     console.log("error fired");
+  //   }
+  // };
+
   const getUserCreatedLists = async () => {
     let url = "/userlists";
 
     dispatch({ type: GET_USER_LIST_BEGIN });
     try {
       const { data } = await authFetch(url);
-      const { userCreatedList, totalUserCreatedList, numOfPages } = data;
+      const {
+        userCreatedList,
+        userContributorList,
+        totalUserCreatedList,
+        numOfPages,
+      } = data;
       dispatch({
         type: GET_USER_LIST_SUCCESS,
-        payload: { userCreatedList, totalUserCreatedList, numOfPages },
+        payload: {
+          userCreatedList,
+          userContributorList,
+          totalUserCreatedList,
+          numOfPages,
+        },
       });
     } catch (error) {
       console.log(error.response);
@@ -201,7 +328,7 @@ const AppProvider = ({ children }) => {
       //console.log("delete userlist should fire from here");
       dispatch({ type: DELETE_USER_LIST_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
-      await getUserCreatedLists();
+      //await getUserCreatedLists();
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
@@ -217,33 +344,45 @@ const AppProvider = ({ children }) => {
       console.log("delete userItem should fire from here");
       dispatch({ type: DELETE_USER_LIST_ITEM_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
-      //await getUserCreatedLists();
-      await getUserCreatedListItems();
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
     }
   };
 
-  const setActiveList = async (listId) => {
+  const setActiveList = async (listId, status) => {
+    //Due to list ownership being different for received vs created lists. I have to send a 2nd parameter called 'status'. This will denote which front-end state we use for creating the active list. And thus how we go inside a list on the front end.
     console.log("listId in appContext");
     console.log(listId);
-    const newActiveList = await state.userCreatedList.filter(
-      (item) => item._id === listId
-    );
-    console.log("newActiveList");
-    console.log(newActiveList);
+
     try {
-      dispatch({ type: SET_ACTIVE_LIST, payload: { newActiveList } });
+      if (status === "created") {
+        const newActiveList = await state.userCreatedList.filter(
+          (item) => item._id === listId
+        );
+        console.log("newActiveList");
+        console.log(newActiveList);
+        dispatch({ type: SET_ACTIVE_LIST, payload: { newActiveList } });
+      }
+      if (status === "received") {
+        const newActiveList = await state.userContributorList.filter(
+          (item) => item._id === listId
+        );
+        console.log("newActiveList");
+        console.log(newActiveList);
+        dispatch({ type: SET_ACTIVE_LIST, payload: { newActiveList } });
+      }
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
     }
   };
 
-  const setInsideList = () => {
+  const setInsideList = (status) => {
+    console.log("status");
+    console.log(status);
     try {
-      dispatch({ type: SET_INSIDE_LIST });
+      dispatch({ type: SET_INSIDE_LIST, payload: { status } });
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
@@ -254,13 +393,35 @@ const AppProvider = ({ children }) => {
 
   const createUserListItem = async () => {
     dispatch({ type: CREATE_USER_LIST_ITEM_BEGIN });
-    const { itemTitle, activeList } = state;
+    const { itemTitle, activeList, insideList, user } = state;
+    const userId = user._id;
+    console.log("insideList: " + insideList);
+    console.log("userId: " + userId);
+
     const parentListId = activeList[0]._id;
+    const creatorId = activeList[0].createdById;
     try {
-      await authFetch.post("/useritems", { itemTitle, parentListId });
-      dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
-      dispatch({ type: CLEAR_VALUES });
-      await getUserCreatedListItems();
+      if (insideList === "created") {
+        await authFetch.post("/useritems", {
+          itemTitle,
+          parentListId,
+          insideList,
+        });
+        dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
+        dispatch({ type: CLEAR_VALUES });
+      }
+      if (insideList === "received") {
+        console.log("userId inside received: " + userId);
+        await authFetch.post("/useritems", {
+          itemTitle,
+          parentListId,
+          insideList,
+          userId,
+          creatorId,
+        });
+        dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
+        dispatch({ type: CLEAR_VALUES });
+      }
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({
@@ -283,10 +444,14 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch.get("/useritems");
       console.log("data in here");
       console.log(data);
-      const { userCreatedItems, totalUserCreatedItems } = data;
+      const { userOwnedItems, userCreatedItems, totalUserCreatedItems } = data;
       dispatch({
         type: GET_USER_LIST_ITEM_SUCCESS,
-        payload: { userCreatedItems, totalUserCreatedItems },
+        payload: {
+          userOwnedItems,
+          userCreatedItems,
+          totalUserCreatedItems,
+        },
       });
     } catch (error) {
       console.log(error.response);
@@ -371,8 +536,10 @@ const AppProvider = ({ children }) => {
         clearValues,
         displayAlert,
         setupUser,
+        logoutUser,
         handleChange,
         createUserList,
+        createUserSocialList,
         getUserCreatedLists,
         setEditUserCreatedList,
         deleteUserCreatedList,

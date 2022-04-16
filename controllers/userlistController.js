@@ -27,19 +27,69 @@ const createList = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ userList });
 };
 
+const createSocialList = async (req, res) => {
+  const { listTitle } = req.params;
+  const { friendIdentifier } = req.body;
+  friendIdentifier;
+  console.log("Inside createSocialList");
+  console.log("req.params");
+  console.log(req.params);
+  console.log("req.body");
+  console.log(req.body);
+  if (!listTitle) {
+    throw new BadRequestError("Please provide a title for your list");
+  }
+  const listObj = {};
+  listObj.listTitle = listTitle;
+  listObj.createdById = req.user.userId;
+  listObj.ownerId = req.user.userId;
+  listObj.contributors = friendIdentifier;
+  console.log("listObjownerId: " + listObj.ownerId);
+  console.log("listObj.contributors: " + listObj.contributors);
+  const userList = await UserCustomList.create(listObj);
+  res.status(StatusCodes.CREATED).json({ userList });
+  res.send("socialist list creation");
+};
+
 const getAllLists = async (req, res) => {
   const userCreatedList = await UserCustomList.find({
     ownerId: req.user.userId,
   });
+  const userContributorList = await UserCustomList.find({
+    contributors: req.user.userId,
+  });
+
+  console.log("userContributorList");
+  console.log(userContributorList);
   //numOfPages hard coded to 1 for now but can make dynamic to allow flipping through multiple pages of lists later instead of infinite scrolling
   res.status(StatusCodes.OK).json({
     userCreatedList,
+    userContributorList,
     totalUserCreatedList: userCreatedList.length,
     numOfPages: 1,
   });
 };
+
 const updateList = async (req, res) => {
-  res.send("updateList");
+  res.send("updating list test");
+};
+
+const AddContributorsToList = async (req, res) => {
+  const { listId } = req.params;
+
+  const list = await UserCustomList.findOne({ _id: listId });
+
+  console.log("req.params");
+  console.log(req.params);
+  console.log("list" + list);
+
+  if (!list) {
+    throw new NotFoundError(`No list with id: ${listId}`);
+  }
+
+  //await res.status(StatusCodes.OK).json({ msg: "Success! List Removed" });
+
+  res.send("AddContributorsToList list test");
 };
 
 const deleteList = async (req, res) => {
@@ -126,11 +176,13 @@ const showListInfo = async (req, res) => {
 };
 
 export {
-  createList,
   getAllLists,
+  createList,
+  createSocialList,
   createSentList,
   getSentListId,
   updateList,
+  AddContributorsToList,
   deleteList,
   showListInfo,
 };

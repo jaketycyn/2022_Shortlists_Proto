@@ -21,6 +21,15 @@ export const CardFieldset = styled.fieldset`
   margin: 0;
   border: 0;
 
+  .btn-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    margin: 1rem;
+    padding: 0 1rem 0 1rem;
+    //background: ${(props) => props.theme.colors.secondary};
+  }
+
   & + & {
     margin-top: 24px;
   }
