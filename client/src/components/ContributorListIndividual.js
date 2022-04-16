@@ -32,6 +32,7 @@ const ContributorListIndividual = ({ _id }) => {
     activeList,
     isLoading,
     clearAlert,
+    insideList,
     clearValues,
     displayAlert,
     showAlert,
@@ -76,16 +77,15 @@ const ContributorListIndividual = ({ _id }) => {
 
   //test setup use tutorial setup for final version.
   const handleSubmit = (e) => {
-    //doing both friend title submit + item list submit in 1 submit button. Could be better to separate, but i believe by setting up explicit "if" statements with variables I'll be able to control for each use case.
     e.preventDefault();
-    if (!itemTitle && !friendTitle) {
+
+    if (!itemTitle) {
       displayAlert();
       return;
     }
 
-    if (itemTitle && !friendTitle) {
+    if (itemTitle) {
       createUserListItem();
-      //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
       clearAlert();
       getUserCreatedListItems();
     }
@@ -93,10 +93,11 @@ const ContributorListIndividual = ({ _id }) => {
       console.log("friend submit fired");
 
       sendListToFriend();
-      //might put clear alert else where. This is for a nice popup notification to give user feedback. Could move this to within the reducer itself later.
-      // clearAlert();
-      // getUserCreatedListItems();
     }
+  };
+  const handleDeleteItem = async (id) => {
+    await deleteUserCreatedListItem(id);
+    await getUserCreatedListItems();
   };
 
   const handleItemInput = (e) => {
@@ -174,7 +175,7 @@ const ContributorListIndividual = ({ _id }) => {
                     <h4>Delete this Item?</h4>
                     <button
                       className="delete"
-                      onClick={() => deleteUserCreatedListItem(item._id)}
+                      onClick={() => handleDeleteItem(item._id)}
                     >
                       Yes
                     </button>

@@ -392,13 +392,35 @@ const AppProvider = ({ children }) => {
 
   const createUserListItem = async () => {
     dispatch({ type: CREATE_USER_LIST_ITEM_BEGIN });
-    const { itemTitle, activeList } = state;
+    const { itemTitle, activeList, insideList, user } = state;
+    const userId = user._id;
+    console.log("insideList: " + insideList);
+    console.log("userId: " + userId);
+
     const parentListId = activeList[0]._id;
+    const creatorId = activeList[0].createdById;
     try {
-      await authFetch.post("/useritems", { itemTitle, parentListId });
-      dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
-      dispatch({ type: CLEAR_VALUES });
-      await getUserCreatedListItems();
+      if (insideList === "created") {
+        await authFetch.post("/useritems", {
+          itemTitle,
+          parentListId,
+          insideList,
+        });
+        dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
+        dispatch({ type: CLEAR_VALUES });
+      }
+      if (insideList === "received") {
+        console.log("userId inside received: " + userId);
+        await authFetch.post("/useritems", {
+          itemTitle,
+          parentListId,
+          insideList,
+          userId,
+          creatorId,
+        });
+        dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
+        dispatch({ type: CLEAR_VALUES });
+      }
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({

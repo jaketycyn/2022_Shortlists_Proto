@@ -7,28 +7,47 @@ import {
 } from "../errors/index.js";
 
 const addItem = async (req, res) => {
-  const { itemTitle, parentListId } = req.body;
-  console.log("req.body");
-  console.log(req.body);
-  console.log(itemTitle);
-  res.send("addItem");
+  const { itemTitle, parentListId, insideList, userId, creatorId } = req.body;
+  // console.log("req.body");
+  // console.log(req.body);
+  // console.log(itemTitle);
+
+  // console.log("insideList: " + insideList);
+  // console.log("userId: " + userId);
+  //console.log("creatorId: " + creatorId);
+
+  // res.send("addItem");
 
   if (!itemTitle) {
     throw new BadRequestError("Please provide a name for your item");
   }
 
-  req.body.createdById = req.user.userId;
-  req.body.ownerId = req.user.userId;
-  req.body.parentListId = parentListId;
   // All properties for item on creation listed below
   // req.body.ranking = 0;
   // req.body.potentialRanking = 0;
   // req.body.botBound = 0;
   // req.body.topBound = 0;
 
-  const userItem = await UserCustomListItem.create(req.body);
+  if (insideList === "created") {
+    req.body.createdById = req.user.userId;
+    req.body.ownerId = req.user.userId;
+    req.body.parentListId = parentListId;
+    const userItem = await UserCustomListItem.create(req.body);
+    res.status(StatusCodes.CREATED).json({ userItem });
+  }
 
-  res.status(StatusCodes.CREATED).json({ userItem });
+  if (insideList === "received") {
+    //slight change in logic of owner vs creator compared to prototype 1.0.
+    //! owner will be the original creator of a list.
+    //! for items the person who writes into the input and submits is the creator however, the owner will be the original sender of the social list. Hopefully will find better variable names in the future to prevent any potential difficulties
+    req.body.createdById = req.user.userId;
+    req.body.ownerId = creatorId;
+    req.body.parentListId = parentListId;
+    const userItem = await UserCustomListItem.create(req.body);
+
+    res.status(StatusCodes.CREATED).json({ userItem });
+    console.log("SOMEONE ELSES lets create an item");
+  }
 };
 
 const addSentItems = async (req, res) => {
@@ -48,11 +67,11 @@ const addSentItems = async (req, res) => {
     (item) =>
       (item.ownerId = friendIdentifier) && (item.parentListId = sentListId)
   );
-  console.log("sentItems");
-  console.log(sentItems);
+  // console.log("sentItems");
+  // console.log(sentItems);
   sentItems.forEach((item) => delete item._id);
-  console.log("sentItems");
-  console.log(sentItems);
+  // console.log("sentItems");
+  // console.log(sentItems);
 
   const sentUserItems = await UserCustomListItem.insertMany(sentItems);
 
@@ -79,7 +98,7 @@ const getAllItems = async (req, res) => {
     //parentListId: parentListId,
   });
 
-  console.log("userCreatedListItems " + userCreatedItems);
+  //console.log("userCreatedListItems " + userCreatedItems);
 
   res.status(StatusCodes.OK).json({
     userCreatedItems,

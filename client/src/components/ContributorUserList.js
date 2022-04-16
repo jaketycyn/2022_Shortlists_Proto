@@ -98,8 +98,8 @@ const ContributorUserList = ({ _id, listTitle }) => {
         {listTitle}
       </div>
 
+      <span></span>
       {/* Delete List*/}
-      <div>ContributorUserList</div>
       <div className="delete" onClick={() => toggleDeleteModal(_id)}>
         <Trash />
         {/* Delete Modal */}

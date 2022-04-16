@@ -38,7 +38,6 @@ const UserListContainer = () => {
   if (insideList === "created") {
     return (
       <Wrapper>
-        <div>created</div>
         <UserListIndividual />
       </Wrapper>
     );
@@ -47,7 +46,6 @@ const UserListContainer = () => {
   if (insideList === "received") {
     return (
       <Wrapper>
-        <div>received</div>
         <ContributorListIndividual />
       </Wrapper>
     );
