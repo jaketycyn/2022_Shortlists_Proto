@@ -18,7 +18,7 @@ const UserList = ({ _id, listTitle }) => {
     friendTitle,
     handleChange,
     showAlert,
-
+    getUserCreatedLists,
     getUserCreatedListItems,
     deleteUserCreatedList,
     setActiveList,
@@ -31,8 +31,9 @@ const UserList = ({ _id, listTitle }) => {
   const [opacity, setOpacity] = useState(0);
 
   const goInsideList = async (_id) => {
-    await setActiveList(_id, "created");
-    await setInsideList();
+    const status = "created";
+    await setActiveList(_id, status);
+    await setInsideList(status);
   };
 
   function toggleSendModal(e) {
@@ -66,6 +67,11 @@ const UserList = ({ _id, listTitle }) => {
   };
 
   //test setup use tutorial setup for final version.
+  const handleDelete = async (_id) => {
+    await deleteUserCreatedList(_id);
+    await getUserCreatedLists();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (friendTitle) {
@@ -146,10 +152,7 @@ const UserList = ({ _id, listTitle }) => {
             backgroundProps={{ opacity }}
           >
             <h4>Delete this List?</h4>
-            <button
-              className="delete"
-              onClick={() => deleteUserCreatedList(_id)}
-            >
+            <button className="delete" onClick={() => handleDelete(_id)}>
               Yes
             </button>
             <button className="close" onClick={() => toggleDeleteModal()}>
