@@ -55,9 +55,16 @@ const getAllLists = async (req, res) => {
   const userCreatedList = await UserCustomList.find({
     ownerId: req.user.userId,
   });
+  const userContributorList = await UserCustomList.find({
+    contributors: req.user.userId,
+  });
+
+  console.log("userContributorList");
+  console.log(userContributorList);
   //numOfPages hard coded to 1 for now but can make dynamic to allow flipping through multiple pages of lists later instead of infinite scrolling
   res.status(StatusCodes.OK).json({
     userCreatedList,
+    userContributorList,
     totalUserCreatedList: userCreatedList.length,
     numOfPages: 1,
   });

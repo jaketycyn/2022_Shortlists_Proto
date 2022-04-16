@@ -53,6 +53,7 @@ const initialState = {
   editListId: "",
   listTitle: "",
   userCreatedList: [],
+  userContributorList: [],
   totalUserCreatedList: 0,
   itemTitle: "",
   userCreatedItems: [],
@@ -290,10 +291,20 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_USER_LIST_BEGIN });
     try {
       const { data } = await authFetch(url);
-      const { userCreatedList, totalUserCreatedList, numOfPages } = data;
+      const {
+        userCreatedList,
+        userContributorList,
+        totalUserCreatedList,
+        numOfPages,
+      } = data;
       dispatch({
         type: GET_USER_LIST_SUCCESS,
-        payload: { userCreatedList, totalUserCreatedList, numOfPages },
+        payload: {
+          userCreatedList,
+          userContributorList,
+          totalUserCreatedList,
+          numOfPages,
+        },
       });
     } catch (error) {
       console.log(error.response);
@@ -340,16 +351,28 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const setActiveList = async (listId) => {
+  const setActiveList = async (listId, status) => {
+    //Due to list ownership being different for received vs created lists. I have to send a 2nd parameter called 'status'. This will denote which front-end state we use for creating the active list. And thus how we go inside a list on the front end.
     console.log("listId in appContext");
     console.log(listId);
-    const newActiveList = await state.userCreatedList.filter(
-      (item) => item._id === listId
-    );
-    console.log("newActiveList");
-    console.log(newActiveList);
+
     try {
-      dispatch({ type: SET_ACTIVE_LIST, payload: { newActiveList } });
+      if (status === "created") {
+        const newActiveList = await state.userCreatedList.filter(
+          (item) => item._id === listId
+        );
+        console.log("newActiveList");
+        console.log(newActiveList);
+        dispatch({ type: SET_ACTIVE_LIST, payload: { newActiveList } });
+      }
+      if (status === "received") {
+        const newActiveList = await state.userContributorList.filter(
+          (item) => item._id === listId
+        );
+        console.log("newActiveList");
+        console.log(newActiveList);
+        dispatch({ type: SET_ACTIVE_LIST, payload: { newActiveList } });
+      }
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
