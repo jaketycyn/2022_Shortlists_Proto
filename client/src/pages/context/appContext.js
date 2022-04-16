@@ -56,6 +56,7 @@ const initialState = {
   userContributorList: [],
   totalUserCreatedList: 0,
   itemTitle: "",
+  userOwnedItems: [],
   userCreatedItems: [],
   totalUserCreatedItems: 0,
 
@@ -443,10 +444,14 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch.get("/useritems");
       console.log("data in here");
       console.log(data);
-      const { userCreatedItems, totalUserCreatedItems } = data;
+      const { userOwnedItems, userCreatedItems, totalUserCreatedItems } = data;
       dispatch({
         type: GET_USER_LIST_ITEM_SUCCESS,
-        payload: { userCreatedItems, totalUserCreatedItems },
+        payload: {
+          userOwnedItems,
+          userCreatedItems,
+          totalUserCreatedItems,
+        },
       });
     } catch (error) {
       console.log(error.response);

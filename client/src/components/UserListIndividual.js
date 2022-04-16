@@ -42,6 +42,7 @@ const UserListIndividual = ({ _id }) => {
     getUserCreatedListItems,
     deleteUserCreatedListItem,
     userCreatedItems,
+    userOwnedItems,
     sendListToFriend,
   } = useAppContext();
 
@@ -117,7 +118,7 @@ const UserListIndividual = ({ _id }) => {
   }, []);
 
   const parentListId = activeList[0]._id;
-  const filteredListByParentId = userCreatedItems.filter(
+  const filteredListByParentId = userOwnedItems.filter(
     (item) => item.parentListId === parentListId
   );
 

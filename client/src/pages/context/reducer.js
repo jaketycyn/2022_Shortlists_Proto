@@ -207,6 +207,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      userOwnedItems: action.payload.userOwnedItems,
       userCreatedItems: action.payload.userCreatedItems,
       totalUserCreatedItems: action.payload.totalUserCreatedItems,
     };

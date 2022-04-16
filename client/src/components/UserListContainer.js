@@ -11,15 +11,10 @@ import UserListCreation from "./UserListCreation";
 
 const UserListContainer = () => {
   const {
-    isLoading,
     insideList,
-    activeList,
     userCreatedList,
     userContributorList,
     totalUserCreatedList,
-    page,
-    getUserCreatedLists,
-    user,
   } = useAppContext();
 
   //

@@ -93,14 +93,19 @@ const getAllItems = async (req, res) => {
 
   //finding all items belong to user. Couldn't not figure out how a multi query works.
   //TODO RF: multi variable/property query to mongoDB. To find specific items from the list requested. And not all.
-  const userCreatedItems = await UserCustomListItem.find({
+  const userOwnedItems = await UserCustomListItem.find({
     ownerId: req.user.userId,
-    //parentListId: parentListId,
+  });
+
+  const userCreatedItems = await await UserCustomListItem.find({
+    createdById: req.user.userId,
+    ownedId: !req.user.userId,
   });
 
   //console.log("userCreatedListItems " + userCreatedItems);
 
   res.status(StatusCodes.OK).json({
+    userOwnedItems,
     userCreatedItems,
     totalUserCreatedItems: userCreatedItems.length,
   });
