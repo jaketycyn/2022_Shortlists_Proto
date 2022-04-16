@@ -343,8 +343,6 @@ const AppProvider = ({ children }) => {
       console.log("delete userItem should fire from here");
       dispatch({ type: DELETE_USER_LIST_ITEM_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
-      //await getUserCreatedLists();
-      await getUserCreatedListItems();
     } catch (error) {
       console.log(error);
       console.log("logout user enter here");
