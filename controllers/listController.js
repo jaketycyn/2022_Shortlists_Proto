@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import UserCustomListItem from "../models/UserCustomListItem.js";
 import { StatusCodes } from "http-status-codes";
 import {
@@ -5,6 +6,7 @@ import {
   UnAuthenticatedError,
   NotFoundError,
 } from "../errors/index.js";
+import UserCustomList from "../models/UserCustomList.js";
 
 const addItem = async (req, res) => {
   const { itemTitle, parentListId, insideList, userId, creatorId } = req.body;
@@ -80,35 +82,55 @@ const addSentItems = async (req, res) => {
 
 const getAllItems = async (req, res) => {
   //const { parentListId } = req.params;
+  const { userListIds } = req.params;
 
   // testing console logs
-  // console.log("req.params");
-  // console.log(req.params);
-  // console.log("req.body");
-  // console.log(req.body);
+  console.log("req.params");
+  console.log(req.params);
+
+  console.log("userListIds");
+  console.log(userListIds);
+  //taking giant string of ids and creating array
+  if (userListIds) {
+    const newUserListIds = userListIds.split(",");
+
+    console.log("newUserListIds");
+    console.log(newUserListIds);
+    const allUserItems = await UserCustomListItem.find({
+      parentListId: { $in: newUserListIds },
+    });
+
+    console.log("allUserItems " + allUserItems);
+
+    res.status(StatusCodes.OK).json({
+      allUserItems,
+    });
+  }
+
   // console.log("req.user");
   // console.log(req.user);
   // console.log("parentListId");
   // console.log(parentListId);
 
   //finding all items belong to user. Couldn't not figure out how a multi query works.
-  //TODO RF: multi variable/property query to mongoDB. To find specific items from the list requested. And not all.
-  const userOwnedItems = await UserCustomListItem.find({
-    ownerId: req.user.userId,
-  });
+  //TODO RF: multi variable/property query to mongoDB. To find specific items from the list requested. And not all.\
+  //! old item lookup/get
+  // const userOwnedItems = await UserCustomListItem.find({
+  //   ownerId: req.user.userId,
+  // });
 
-  const userCreatedItems = await await UserCustomListItem.find({
-    createdById: req.user.userId,
-    ownedId: !req.user.userId,
-  });
+  // const userCreatedItems = await await UserCustomListItem.find({
+  //   createdById: req.user.userId,
+  //   ownedId: !req.user.userId,
+  // });
 
-  //console.log("userCreatedListItems " + userCreatedItems);
+  //!I need every list id the user is a contributor in.
 
-  res.status(StatusCodes.OK).json({
-    userOwnedItems,
-    userCreatedItems,
-    totalUserCreatedItems: userCreatedItems.length,
-  });
+  // res.status(StatusCodes.OK).json({
+  //   userOwnedItems,
+  //   userCreatedItems,
+  //   totalUserCreatedItems: userCreatedItems.length,
+  // });
 
   console.log("getAllItems");
 };

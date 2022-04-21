@@ -41,7 +41,6 @@ const UserListIndividual = ({ _id }) => {
     createUserListItem,
     getUserCreatedListItems,
     deleteUserCreatedListItem,
-    userCreatedItems,
     userOwnedItems,
     sendListToFriend,
   } = useAppContext();
