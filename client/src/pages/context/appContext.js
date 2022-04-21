@@ -52,9 +52,7 @@ const initialState = {
   activeList: [],
   editListId: "",
   listTitle: "",
-  userCreatedList: [],
   userContributorList: [],
-  totalUserCreatedList: 0,
   itemTitle: "",
   userOwnedItems: [],
   userCreatedItems: [],
@@ -292,18 +290,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_USER_LIST_BEGIN });
     try {
       const { data } = await authFetch(url);
-      const {
-        userCreatedList,
-        userContributorList,
-        totalUserCreatedList,
-        numOfPages,
-      } = data;
+      const { userContributorList, numOfPages } = data;
       dispatch({
         type: GET_USER_LIST_SUCCESS,
         payload: {
-          userCreatedList,
           userContributorList,
-          totalUserCreatedList,
           numOfPages,
         },
       });

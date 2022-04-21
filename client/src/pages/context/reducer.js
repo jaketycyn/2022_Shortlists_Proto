@@ -133,9 +133,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      userCreatedList: action.payload.userCreatedList,
       userContributorList: action.payload.userContributorList,
-      totalUserCreatedList: action.payload.totalUserCreatedList,
       numOfPages: action.payload.numOfPages,
     };
   }
