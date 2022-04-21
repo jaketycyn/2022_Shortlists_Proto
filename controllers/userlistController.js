@@ -15,10 +15,12 @@ const createList = async (req, res) => {
   if (!listTitle) {
     throw new BadRequestError("Please provide a title for your list");
   }
+  const currentUser = req.user.userId;
   const listObj = {};
   listObj.listTitle = listTitle;
-  listObj.createdById = req.user.userId;
-  listObj.ownerId = req.user.userId;
+  listObj.createdById = currentUser;
+  listObj.ownerId = currentUser;
+  listObj.contributors = currentUser;
   console.log("listObj: " + listObj);
   console.log("listObjownerId: " + listObj.ownerId);
 
@@ -39,11 +41,14 @@ const createSocialList = async (req, res) => {
   if (!listTitle) {
     throw new BadRequestError("Please provide a title for your list");
   }
+  const currentUser = req.user.userId;
+
   const listObj = {};
   listObj.listTitle = listTitle;
-  listObj.createdById = req.user.userId;
-  listObj.ownerId = req.user.userId;
-  listObj.contributors = [req.user.userId, friendIdentifier];
+  listObj.createdById = currentUser;
+  listObj.ownerId = currentUser;
+  //TODO: will need to change friendIdentifier to a bigger encompassing array when multiple users can be sent lists in the future
+  listObj.contributors = [currentUser, friendIdentifier];
   console.log("listObjownerId: " + listObj.ownerId);
   console.log("listObj.contributors: " + listObj.contributors);
   const userList = await UserCustomList.create(listObj);
@@ -52,9 +57,6 @@ const createSocialList = async (req, res) => {
 };
 
 const getAllLists = async (req, res) => {
-  const userCreatedList = await UserCustomList.find({
-    ownerId: req.user.userId,
-  });
   const userContributorList = await UserCustomList.find({
     contributors: req.user.userId,
   });
@@ -63,10 +65,7 @@ const getAllLists = async (req, res) => {
   console.log(userContributorList);
   //numOfPages hard coded to 1 for now but can make dynamic to allow flipping through multiple pages of lists later instead of infinite scrolling
   res.status(StatusCodes.OK).json({
-    userCreatedList,
     userContributorList,
-
-    totalUserCreatedList: userCreatedList.length,
     numOfPages: 1,
   });
 };
