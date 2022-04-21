@@ -43,7 +43,7 @@ const createSocialList = async (req, res) => {
   listObj.listTitle = listTitle;
   listObj.createdById = req.user.userId;
   listObj.ownerId = req.user.userId;
-  listObj.contributors = friendIdentifier;
+  listObj.contributors = [req.user.userId, friendIdentifier];
   console.log("listObjownerId: " + listObj.ownerId);
   console.log("listObj.contributors: " + listObj.contributors);
   const userList = await UserCustomList.create(listObj);
@@ -65,6 +65,7 @@ const getAllLists = async (req, res) => {
   res.status(StatusCodes.OK).json({
     userCreatedList,
     userContributorList,
+
     totalUserCreatedList: userCreatedList.length,
     numOfPages: 1,
   });
