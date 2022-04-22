@@ -447,7 +447,7 @@ const AppProvider = ({ children }) => {
       // const { data } = await authFetch.get(`/useritems/listIds/${userListIds}`);
       
       const data = await Promise.all(userListIds.map(async (userListId) => {
-        return authFetch.get(`/list/${userListId}/items}`)
+        return authFetch.get(`/list/${userListId}/items`)
       }))
 
       // const { data } = await authFetch.get(`/item/${itemId}`)
