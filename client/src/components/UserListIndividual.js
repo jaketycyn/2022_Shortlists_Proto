@@ -30,6 +30,7 @@ import { Trash } from "@styled-icons/bootstrap/Trash";
 const UserListIndividual = ({ _id }) => {
   const {
     activeList,
+    allUserItems,
     isLoading,
     clearAlert,
     clearValues,
@@ -47,7 +48,23 @@ const UserListIndividual = ({ _id }) => {
 
   const [sendIsOpen, setSendIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
+  const [deleteItemId, setDeleteItemId] = useState("");
   const [opacity, setOpacity] = useState(0);
+
+  const parentListId = activeList[0]._id;
+  const filteredListByParentId = allUserItems.filter(
+    (item) => item.parentListId === parentListId
+  );
+
+  console.log("filteredListByParentId");
+  console.log(filteredListByParentId);
+
+  const deleteItemIdHandle = (id) => {
+    console.log("before: " + deleteItemId);
+    setDeleteItemId(id);
+    console.log(deleteItemId);
+    console.log("after: " + deleteItemId);
+  };
 
   function toggleSendModal(e) {
     setOpacity(0);
@@ -116,13 +133,6 @@ const UserListIndividual = ({ _id }) => {
     console.log("getUserCreatedListItems - UserListIndividual");
   }, []);
 
-  const parentListId = activeList[0]._id;
-  const filteredListByParentId = userOwnedItems.filter(
-    (item) => item.parentListId === parentListId
-  );
-
-  console.log("filteredListByParentId");
-  console.log(filteredListByParentId);
   return (
     <Wrapper className="Origin">
       <form className="form" onSubmit={handleSubmit}>
@@ -194,6 +204,7 @@ const UserListIndividual = ({ _id }) => {
             return (
               <ItemWrapper key={item._id} itemtitle={item.itemtitle}>
                 <ItemHeader>{item.itemTitle}</ItemHeader>
+
                 <div
                   className="delete"
                   onClick={() => toggleDeleteModal(item._id)}
@@ -214,8 +225,9 @@ const UserListIndividual = ({ _id }) => {
                     <h4>Delete this Item?</h4>
                     <button
                       className="delete"
-                      onClick={() => handleDeleteItem(item._id)}
+                      onClick={() => deleteItemIdHandle(item._id)}
                     >
+                      {deleteItemId}
                       Yes
                     </button>
                     <button

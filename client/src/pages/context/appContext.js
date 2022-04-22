@@ -350,7 +350,7 @@ const AppProvider = ({ children }) => {
 
     try {
       if (status === "created") {
-        const newActiveList = await state.userCreatedList.filter(
+        const newActiveList = await state.userContributorList.filter(
           (item) => item._id === listId
         );
         console.log("newActiveList");
