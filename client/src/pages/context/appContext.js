@@ -444,7 +444,13 @@ const AppProvider = ({ children }) => {
     console.log(userListIds);
     dispatch({ type: GET_USER_LIST_ITEM_BEGIN });
     try {
-      const { data } = await authFetch.get(`/useritems/listIds/${userListIds}`);
+      // const { data } = await authFetch.get(`/useritems/listIds/${userListIds}`);
+      
+      const data = await Promise.all(userListIds.map(async (userListId) => {
+        return authFetch.get(`/list/${userListId}/items}`)
+      }))
+
+      // const { data } = await authFetch.get(`/item/${itemId}`)
       console.log("data in here");
       console.log(data);
       const { allUserItems } = data;
