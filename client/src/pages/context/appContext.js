@@ -52,13 +52,13 @@ const initialState = {
   activeList: [],
   editListId: "",
   listTitle: "",
-  userCreatedList: [],
   userContributorList: [],
-  totalUserCreatedList: 0,
   itemTitle: "",
   userOwnedItems: [],
   userCreatedItems: [],
   totalUserCreatedItems: 0,
+
+  allUserItems: [],
 
   //numOfPages = changing value in listController in the future. Currently hard coded to 1. Similar thing with page. But we'll update page in the future to dictate the current page/which part of of UserCreatedList array is shown to user.
   numOfPages: 1,
@@ -292,18 +292,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_USER_LIST_BEGIN });
     try {
       const { data } = await authFetch(url);
-      const {
-        userCreatedList,
-        userContributorList,
-        totalUserCreatedList,
-        numOfPages,
-      } = data;
+      const { userContributorList, numOfPages } = data;
       dispatch({
         type: GET_USER_LIST_SUCCESS,
         payload: {
-          userCreatedList,
           userContributorList,
-          totalUserCreatedList,
           numOfPages,
         },
       });
@@ -357,7 +350,7 @@ const AppProvider = ({ children }) => {
 
     try {
       if (status === "created") {
-        const newActiveList = await state.userCreatedList.filter(
+        const newActiveList = await state.userContributorList.filter(
           (item) => item._id === listId
         );
         console.log("newActiveList");
@@ -436,21 +429,25 @@ const AppProvider = ({ children }) => {
   };
 
   const getUserCreatedListItems = async () => {
-    const { activeList } = state;
+    const { activeList, userContributorList } = state;
     //const parentListId = activeList[0]._id;
 
+    //array of ids from all lists this user is a contributor on
+    const userListIds = Array.from(userContributorList, (item) => item._id);
+
+    console.log("hi inside getUserCreatedListItems");
+    console.log("userListIds: " + userListIds);
+    console.log(userListIds);
     dispatch({ type: GET_USER_LIST_ITEM_BEGIN });
     try {
-      const { data } = await authFetch.get("/useritems");
+      const { data } = await authFetch.get(`/useritems/listIds/${userListIds}`);
       console.log("data in here");
       console.log(data);
-      const { userOwnedItems, userCreatedItems, totalUserCreatedItems } = data;
+      const { allUserItems } = data;
       dispatch({
         type: GET_USER_LIST_ITEM_SUCCESS,
         payload: {
-          userOwnedItems,
-          userCreatedItems,
-          totalUserCreatedItems,
+          allUserItems,
         },
       });
     } catch (error) {

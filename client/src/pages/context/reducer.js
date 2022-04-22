@@ -133,9 +133,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      userCreatedList: action.payload.userCreatedList,
       userContributorList: action.payload.userContributorList,
-      totalUserCreatedList: action.payload.totalUserCreatedList,
       numOfPages: action.payload.numOfPages,
     };
   }
@@ -207,9 +205,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      userOwnedItems: action.payload.userOwnedItems,
-      userCreatedItems: action.payload.userCreatedItems,
-      totalUserCreatedItems: action.payload.totalUserCreatedItems,
+      allUserItems: action.payload.allUserItems,
     };
   }
   //SENDING TO FRIENDS

@@ -10,22 +10,21 @@ import UserListIndividual from "./UserListIndividual";
 import UserListCreation from "./UserListCreation";
 
 const UserListContainer = () => {
-  const {
-    insideList,
-    userCreatedList,
-    userContributorList,
-    totalUserCreatedList,
-  } = useAppContext();
+  const { insideList, userContributorList, user } = useAppContext();
 
   //
 
-  const UserSocialLists = userCreatedList.filter(
-    (item) => item.contributors.length > 0
+  const UserCreatedSocialLists = userContributorList.filter(
+    (item) => item.contributors.length > 1 && item.createdById === user._id
+  );
+
+  const UserReceivedSocialLists = userContributorList.filter(
+    (item) => item.contributors.length > 1 && item.createdById !== user._id
   );
   // console.log("UserSocialLists");
   // console.log(UserSocialLists);
-  const UserTradLists = userCreatedList.filter(
-    (item) => item.contributors.length === 0
+  const UserTradLists = userContributorList.filter(
+    (item) => item.contributors.length === 1
   );
   console.log("UserTradLists");
   console.log(UserTradLists);
@@ -46,7 +45,7 @@ const UserListContainer = () => {
     );
   }
 
-  if (totalUserCreatedList === 0) {
+  if (userContributorList.length === 0) {
     return (
       <Wrapper>
         <UserListCreation />
@@ -69,14 +68,14 @@ const UserListContainer = () => {
       </div>
       <h3>Social Lists created</h3>
       <div className="list-input">
-        {UserSocialLists.map((list) => {
+        {UserCreatedSocialLists.map((list) => {
           return <UserList key={list._id} {...list} />;
         })}
       </div>
       {/* Will need to remove the delete button on the inside/share for these lists since we dont want users receiving to do anything other than add new items to it */}
       <h3>Social Lists received</h3>
       <div className="list-input">
-        {userContributorList.map((list) => {
+        {UserReceivedSocialLists.map((list) => {
           return <ContributorUserList key={list._id} {...list} />;
         })}
       </div>

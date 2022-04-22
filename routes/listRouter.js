@@ -9,7 +9,8 @@ import {
   updateItem,
 } from "../controllers/listController.js";
 
-listRouter.route("/").post(addItem).get(getAllItems);
+listRouter.route("/").post(addItem);
+listRouter.route("/listIds/:userListIds").get(getAllItems);
 listRouter.route("/copy").post(addSentItems);
 //remember about :id
 //removed showItemInfo for now can add later if need be

@@ -30,6 +30,7 @@ import { Trash } from "@styled-icons/bootstrap/Trash";
 const ContributorListIndividual = ({ _id }) => {
   const {
     activeList,
+    allUserItems,
     isLoading,
     clearAlert,
     insideList,
@@ -113,7 +114,7 @@ const ContributorListIndividual = ({ _id }) => {
   }, []);
 
   const parentListId = activeList[0]._id;
-  const filteredListByParentId = userCreatedItems.filter(
+  const filteredListByParentId = allUserItems.filter(
     (item) => item.parentListId === parentListId
   );
 
