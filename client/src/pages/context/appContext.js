@@ -67,12 +67,16 @@ const initialState = {
 
 const AppContext = React.createContext();
 
+// TODO: pass in environment variables
+// const SERVER_HOST = process.env.SERVER_HOST
+const SERVER_HOST = "http://localhost:5001"
+
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // axios
   const authFetch = axios.create({
-    baseURL: "/api/v1",
+    baseURL: `${SERVER_HOST}/api/v1`,
   });
 
   // request

@@ -1,7 +1,5 @@
 import express from "express";
-const app = express();
 import dotenv from "dotenv";
-dotenv.config();
 import "express-async-errors";
 import morgan from "morgan";
 
@@ -25,6 +23,10 @@ import listRouter from "./routes/listRouter.js";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import authenticateUser from "./middleware/auth.js";
+import cors from "cors"
+
+const app = express();
+dotenv.config();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -36,6 +38,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());
+app.use(cors());
 
 // routes
 
