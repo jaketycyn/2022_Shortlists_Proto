@@ -351,8 +351,8 @@ const AppProvider = ({ children }) => {
 
   const setActiveList = async (listId, status) => {
     //Due to list ownership being different for received vs created lists. I have to send a 2nd parameter called 'status'. This will denote which front-end state we use for creating the active list. And thus how we go inside a list on the front end.
-    console.log("listId in appContext");
-    console.log(listId);
+    // console.log("listId in appContext");
+    // console.log(listId);
 
     try {
       if (status === "created") {
@@ -378,8 +378,8 @@ const AppProvider = ({ children }) => {
   };
 
   const setInsideList = (status) => {
-    console.log("status");
-    console.log(status);
+    console.log("status: " + status);
+
     try {
       dispatch({ type: SET_INSIDE_LIST, payload: { status } });
     } catch (error) {
@@ -432,6 +432,8 @@ const AppProvider = ({ children }) => {
         dispatch({ type: CREATE_USER_LIST_ITEM_SUCCESS });
         dispatch({ type: CLEAR_VALUES });
       }
+      //!quick fix for loading/rendering issues need to fix later
+      getUserCreatedListItems();
     } catch (error) {
       if (error.response.status === 401) return;
       dispatch({
@@ -451,15 +453,13 @@ const AppProvider = ({ children }) => {
 
     //array of ids from all lists this user is a contributor on
     const userListIds = Array.from(userContributorList, (item) => item._id);
-
-    console.log("hi inside getUserCreatedListItems");
-    console.log("userListIds: " + userListIds);
-    console.log(userListIds);
+    // console.log("userListIds: " + userListIds);
+    // console.log(userListIds);
     dispatch({ type: GET_USER_LIST_ITEM_BEGIN });
     try {
       const { data } = await authFetch.get(`/useritems/listIds/${userListIds}`);
-      console.log("data in here");
-      console.log(data);
+      // console.log("data in here");
+      // console.log(data);
       const { allUserItems } = data;
       dispatch({
         type: GET_USER_LIST_ITEM_SUCCESS,
