@@ -45,6 +45,8 @@ const ContributorListIndividual = ({ _id }) => {
     deleteUserCreatedListItem,
     userCreatedItems,
     sendListToFriend,
+    deleteItemId,
+    setDeleteItemId,
   } = useAppContext();
 
   const [sendIsOpen, setSendIsOpen] = useState(false);
@@ -56,10 +58,11 @@ const ContributorListIndividual = ({ _id }) => {
     setSendIsOpen(!sendIsOpen);
   }
 
-  function toggleDeleteModal(e) {
+  const toggleDeleteModal = async (id) => {
+    setDeleteItemId(id);
     setOpacity(0);
     setDeleteIsOpen(!deleteIsOpen);
-  }
+  };
 
   function afterOpen() {
     setTimeout(() => {
@@ -96,8 +99,9 @@ const ContributorListIndividual = ({ _id }) => {
       sendListToFriend();
     }
   };
+
   const handleDeleteItem = async (id) => {
-    await deleteUserCreatedListItem(id);
+    await deleteUserCreatedListItem(deleteItemId);
     await getUserCreatedListItems();
   };
 

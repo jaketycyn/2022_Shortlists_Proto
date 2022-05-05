@@ -111,11 +111,7 @@ const UserListIndividual = ({ _id }) => {
     }
   };
 
-  const deleteItemIdHandle = async (id) => {
-    console.log("before: " + deleteItemId);
-    setDeleteItemId(id);
-    console.log(deleteItemId);
-    console.log("after: " + deleteItemId);
+  const handleDeleteItem = async (id) => {
     await deleteUserCreatedListItem(deleteItemId);
     await getUserCreatedListItems();
   };
@@ -227,7 +223,7 @@ const UserListIndividual = ({ _id }) => {
                     <h4>Delete this Item?</h4>
                     <button
                       className="delete"
-                      onClick={() => deleteItemIdHandle(item._id)}
+                      onClick={() => handleDeleteItem(item._id)}
                     >
                       Yes
                     </button>
