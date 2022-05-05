@@ -22,6 +22,7 @@ import {
   SET_ACTIVE_LIST,
   SET_INSIDE_LIST,
   //USER ITEMS
+  SET_DELETE_ITEM_ID,
   CREATE_USER_LIST_ITEM_BEGIN,
   CREATE_USER_LIST_ITEM_SUCCESS,
   CREATE_USER_LIST_ITEM_ERROR,
@@ -57,6 +58,7 @@ const initialState = {
   userOwnedItems: [],
   userCreatedItems: [],
   totalUserCreatedItems: 0,
+  deleteItemId: "",
 
   allUserItems: [],
 
@@ -69,7 +71,7 @@ const AppContext = React.createContext();
 
 // TODO: pass in environment variables
 // const SERVER_HOST = process.env.SERVER_HOST
-const SERVER_HOST = "http://localhost:5001"
+const SERVER_HOST = "http://localhost:5001";
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -386,6 +388,17 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const setDeleteItemId = (id) => {
+    console.log("id");
+    console.log(id);
+    try {
+      dispatch({ type: SET_DELETE_ITEM_ID, payload: { id } });
+    } catch (error) {
+      console.log(error);
+      console.log("logout user enter here");
+    }
+  };
+
   // USER LIST ITEMS
 
   const createUserListItem = async () => {
@@ -547,6 +560,7 @@ const AppProvider = ({ children }) => {
         deleteUserCreatedListItem,
         setActiveList,
         setInsideList,
+        setDeleteItemId,
         createUserListItem,
         getUserCreatedListItems,
         sendListToFriend,

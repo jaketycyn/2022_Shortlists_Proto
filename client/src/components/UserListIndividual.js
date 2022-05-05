@@ -44,11 +44,12 @@ const UserListIndividual = ({ _id }) => {
     deleteUserCreatedListItem,
     userOwnedItems,
     sendListToFriend,
+    deleteItemId,
+    setDeleteItemId,
   } = useAppContext();
 
   const [sendIsOpen, setSendIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
-  const [deleteItemId, setDeleteItemId] = useState("");
   const [opacity, setOpacity] = useState(0);
 
   const parentListId = activeList[0]._id;
@@ -59,11 +60,13 @@ const UserListIndividual = ({ _id }) => {
   console.log("filteredListByParentId");
   console.log(filteredListByParentId);
 
-  const deleteItemIdHandle = (id) => {
+  const deleteItemIdHandle = async (id) => {
     console.log("before: " + deleteItemId);
     setDeleteItemId(id);
     console.log(deleteItemId);
     console.log("after: " + deleteItemId);
+    await deleteUserCreatedListItem(deleteItemId);
+    await getUserCreatedListItems();
   };
 
   function toggleSendModal(e) {
@@ -71,10 +74,11 @@ const UserListIndividual = ({ _id }) => {
     setSendIsOpen(!sendIsOpen);
   }
 
-  function toggleDeleteModal(e) {
+  const toggleDeleteModal = async (id) => {
+    setDeleteItemId(id);
     setOpacity(0);
     setDeleteIsOpen(!deleteIsOpen);
-  }
+  };
 
   function afterOpen() {
     setTimeout(() => {
@@ -132,6 +136,11 @@ const UserListIndividual = ({ _id }) => {
     getUserCreatedListItems();
     console.log("getUserCreatedListItems - UserListIndividual");
   }, []);
+
+  const resetDeleteId = async (id) => {
+    await setDeleteItemId(id);
+    await toggleDeleteModal();
+  };
 
   return (
     <Wrapper className="Origin">
@@ -202,8 +211,10 @@ const UserListIndividual = ({ _id }) => {
         <div>
           {filteredListByParentId.map((item) => {
             return (
-              <ItemWrapper key={item._id} itemtitle={item.itemtitle}>
-                <ItemHeader>{item.itemTitle}</ItemHeader>
+              <ItemWrapper key={item._id} itemtitle={item.itemTitle}>
+                <ItemHeader>
+                  {item.itemTitle} / {item._id}
+                </ItemHeader>
 
                 <div
                   className="delete"
@@ -221,19 +232,16 @@ const UserListIndividual = ({ _id }) => {
                     onEscapeKeydown={toggleDeleteModal}
                     opacity={opacity}
                     backgroundProps={{ opacity }}
+                    id={item._id}
                   >
                     <h4>Delete this Item?</h4>
                     <button
                       className="delete"
                       onClick={() => deleteItemIdHandle(item._id)}
                     >
-                      {deleteItemId}
                       Yes
                     </button>
-                    <button
-                      className="close"
-                      onClick={() => toggleDeleteModal()}
-                    >
+                    <button className="close" onClick={() => resetDeleteId("")}>
                       No
                     </button>
                   </DeletionModal>

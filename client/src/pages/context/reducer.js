@@ -22,6 +22,7 @@ import {
   //MANIPULATING LISTS/ITEMS
   SET_ACTIVE_LIST,
   SET_INSIDE_LIST,
+  SET_DELETE_ITEM_ID,
   CREATE_USER_LIST_ITEM_BEGIN,
   CREATE_USER_LIST_ITEM_SUCCESS,
   CREATE_USER_LIST_ITEM_ERROR,
@@ -59,6 +60,7 @@ const reducer = (state, action) => {
       listTitle: "",
       itemTitle: "",
       friendTitle: "",
+      deleteItemId: "",
     };
 
     return {
@@ -174,6 +176,14 @@ const reducer = (state, action) => {
     return {
       ...state,
       insideList: action.payload.status,
+    };
+  }
+  if (action.type === SET_DELETE_ITEM_ID) {
+    console.log("action.payload.id");
+    console.log(action.payload.id);
+    return {
+      ...state,
+      deleteItemId: action.payload.id,
     };
   }
 
