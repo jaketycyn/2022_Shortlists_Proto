@@ -171,8 +171,8 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === SET_INSIDE_LIST) {
-    console.log("action.payload.status");
-    console.log(action.payload.status);
+    // console.log("action.payload.status");
+    // console.log(action.payload.status);
     return {
       ...state,
       insideList: action.payload.status,

@@ -57,17 +57,8 @@ const UserListIndividual = ({ _id }) => {
     (item) => item.parentListId === parentListId
   );
 
-  console.log("filteredListByParentId");
-  console.log(filteredListByParentId);
-
-  const deleteItemIdHandle = async (id) => {
-    console.log("before: " + deleteItemId);
-    setDeleteItemId(id);
-    console.log(deleteItemId);
-    console.log("after: " + deleteItemId);
-    await deleteUserCreatedListItem(deleteItemId);
-    await getUserCreatedListItems();
-  };
+  // console.log("filteredListByParentId");
+  // console.log(filteredListByParentId);
 
   function toggleSendModal(e) {
     setOpacity(0);
@@ -120,8 +111,12 @@ const UserListIndividual = ({ _id }) => {
     }
   };
 
-  const handleDeleteItem = async (id) => {
-    await deleteUserCreatedListItem(id);
+  const deleteItemIdHandle = async (id) => {
+    console.log("before: " + deleteItemId);
+    setDeleteItemId(id);
+    console.log(deleteItemId);
+    console.log("after: " + deleteItemId);
+    await deleteUserCreatedListItem(deleteItemId);
     await getUserCreatedListItems();
   };
 
@@ -131,11 +126,6 @@ const UserListIndividual = ({ _id }) => {
     // console.log(`${name}: ${value}`)
     handleChange({ name, value });
   };
-
-  useEffect(() => {
-    getUserCreatedListItems();
-    console.log("getUserCreatedListItems - UserListIndividual");
-  }, []);
 
   const resetDeleteId = async (id) => {
     await setDeleteItemId(id);

@@ -10,7 +10,8 @@ import UserListIndividual from "./UserListIndividual";
 import UserListCreation from "./UserListCreation";
 
 const UserListContainer = () => {
-  const { insideList, userContributorList, user } = useAppContext();
+  const { insideList, userContributorList, getUserCreatedListItems, user } =
+    useAppContext();
 
   //
 
@@ -26,8 +27,8 @@ const UserListContainer = () => {
   const UserTradLists = userContributorList.filter(
     (item) => item.contributors.length === 1
   );
-  console.log("UserTradLists");
-  console.log(UserTradLists);
+  // console.log("UserTradLists");
+  // console.log(UserTradLists);
 
   if (insideList === "created") {
     return (
