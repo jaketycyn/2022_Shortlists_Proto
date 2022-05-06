@@ -23,7 +23,7 @@ import listRouter from "./routes/listRouter.js";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import authenticateUser from "./middleware/auth.js";
-import cors from "cors"
+import cors from "cors";
 
 const app = express();
 dotenv.config();
