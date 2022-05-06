@@ -534,14 +534,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const createSentUserList = async () => {
-    //dispatch({ type: CREATE_SENT_USER_LIST_BEGIN})
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <AppContext.Provider
       value={{
